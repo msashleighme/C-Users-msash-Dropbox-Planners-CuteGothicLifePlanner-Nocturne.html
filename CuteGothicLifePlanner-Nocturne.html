@@ -1,0 +1,1713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nocturne — Cute Gothic Life Planner</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2064%2064%22%3E%20%20%3Cdefs%3E%20%20%20%3CradialGradient%20id%3D%22bg%22%20cx%3D%2235%25%22%20cy%3D%2230%25%22%20r%3D%2280%25%22%3E%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%233a2a44%22/%3E%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%231a1420%22/%3E%20%20%20%3C/radialGradient%3E%20%20%20%3ClinearGradient%20id%3D%22moon%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%22100%25%22%20y2%3D%22100%25%22%3E%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23f3e6ec%22/%3E%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23d9a9b8%22/%3E%20%20%20%3C/linearGradient%3E%20%20%3C/defs%3E%20%20%3Ccircle%20cx%3D%2232%22%20cy%3D%2232%22%20r%3D%2231%22%20fill%3D%22url%28%23bg%29%22%20stroke%3D%22%23c17d92%22%20stroke-width%3D%221.5%22/%3E%20%20%3Cpath%20d%3D%22M40%2016%20%20%20%20%20%20a17%2017%200%201%200%200%2032%20%20%20%20%20%20a13.5%2013.5%200%200%201%200%20-32%20Z%22%20%20%20%20%20fill%3D%22url%28%23moon%29%22/%3E%20%20%3Cg%20fill%3D%22%23c17d92%22%3E%20%20%20%3Cpath%20d%3D%22M46%2015%20l1.6%203.6%203.6%201.6%20-3.6%201.6%20-1.6%203.6%20-1.6%20-3.6%20-3.6%20-1.6%203.6%20-1.6%20Z%22/%3E%20%20%3C/g%3E%20%20%3Ccircle%20cx%3D%2219%22%20cy%3D%2246%22%20r%3D%221.4%22%20fill%3D%22%23e3c9d4%22/%3E%20%20%3Ccircle%20cx%3D%2245%22%20cy%3D%2245%22%20r%3D%221%22%20fill%3D%22%23e3c9d4%22/%3E%20%3C/svg%3E%20">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+/* ============================= TOKENS ============================= */
+:root{
+  --bg:#1a1420;
+  --bg-alt:#221a29;
+  --surface:#2a2131;
+  --surface-2:#33293c;
+  --border:#453a50;
+  --border-soft:#3a2f44;
+  --text:#f4ecf1;
+  --text-dim:#c3aec2;
+  --text-faint:#8e7c93;
+  --accent:#c17d92;        /* dusty rose */
+  --accent-deep:#8a4a5c;   /* burgundy */
+  --accent-soft:#e3c9d4;   /* pale rose */
+  --lavender:#b7a4d6;      /* soft lavender */
+  --gold:#cdb589;          /* muted antique gold */
+  --success:#8fae8b;
+  --warn:#d3a35d;
+  --danger:#c97070;
+  --shadow: 0 10px 30px rgba(10,6,14,.45);
+  --radius: 16px;
+  --radius-sm: 10px;
+  --font-display: 'Cormorant Garamond', serif;
+  --font-body: 'Jost', sans-serif;
+  --sidebar-w: 250px;
+}
+
+[data-theme="dark-romance"]{
+  --bg:#180f14; --bg-alt:#1f1319; --surface:#271620; --surface-2:#301c27;
+  --border:#4a2b3a; --border-soft:#3d2330;
+  --text:#f6e9ee; --text-dim:#cba6b6; --text-faint:#93707d;
+  --accent:#b3465f; --accent-deep:#6e2438; --accent-soft:#e8b9c6; --lavender:#a884b0; --gold:#c79b6b;
+}
+[data-theme="gothic-lavender"]{
+  --bg:#181622; --bg-alt:#1f1b2c; --surface:#282237; --surface-2:#322b42;
+  --border:#443a5c; --border-soft:#38304d;
+  --text:#f0ecf8; --text-dim:#bdaed6; --text-faint:#8a7ba3;
+  --accent:#9d84cf; --accent-deep:#5f4a91; --accent-soft:#d9cdf0; --lavender:#c3b3e8; --gold:#c9b98f;
+}
+[data-theme="burgundy-moon"]{
+  --bg:#170e10; --bg-alt:#1e1213; --surface:#271717; --surface-2:#311c1c;
+  --border:#4d2b2b; --border-soft:#3f2222;
+  --text:#f5e8e6; --text-dim:#cba6a2; --text-faint:#977370;
+  --accent:#a23e42; --accent-deep:#5c1f24; --accent-soft:#e3b6b3; --lavender:#b08fa0; --gold:#c9a06a;
+}
+[data-theme="cute-bat"]{
+  --bg:#161320; --bg-alt:#1d1828; --surface:#251f34; --surface-2:#2e263f;
+  --border:#3f3555; --border-soft:#342b48;
+  --text:#efe9fa; --text-dim:#b7a9d4; --text-faint:#83739f;
+  --accent:#7c6fd6; --accent-deep:#4a3e91; --accent-soft:#cfc6f2; --lavender:#a89be0; --gold:#c8b083;
+}
+[data-theme="victorian-noir"]{
+  --bg:#141212; --bg-alt:#1a1717; --surface:#211d1d; --surface-2:#2a2525;
+  --border:#413a37; --border-soft:#332e2c;
+  --text:#efe8e2; --text-dim:#bcaea4; --text-faint:#8a7d75;
+  --accent:#a68a5b; --accent-deep:#5c4a2c; --accent-soft:#ddc9a0; --lavender:#9c8f9b; --gold:#c8ac72;
+}
+
+*{box-sizing:border-box; margin:0; padding:0;}
+html,body{height:100%;}
+body{
+  font-family:var(--font-body);
+  background:
+    radial-gradient(ellipse at top left, rgba(193,125,146,.06), transparent 45%),
+    radial-gradient(ellipse at bottom right, rgba(183,164,214,.05), transparent 50%),
+    var(--bg);
+  color:var(--text);
+  min-height:100vh;
+  overflow-x:hidden;
+  transition:background .4s ease, color .4s ease;
+}
+::selection{background:var(--accent); color:#fff;}
+::-webkit-scrollbar{width:9px; height:9px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:var(--border); border-radius:10px;}
+::-webkit-scrollbar-thumb:hover{background:var(--accent-deep);}
+a{color:inherit;}
+button{font-family:inherit; cursor:pointer;}
+input,select,textarea{font-family:inherit;}
+h1,h2,h3,h4,.display{font-family:var(--font-display);}
+
+/* ============================= LAYOUT ============================= */
+.app{display:flex; min-height:100vh;}
+
+/* Decorative corner ornament */
+.ornament-corner{
+  position:fixed; pointer-events:none; opacity:.35; color:var(--accent); font-size:15px; z-index:1;
+}
+
+/* ---- Sidebar ---- */
+.sidebar{
+  width:var(--sidebar-w); flex-shrink:0; background:linear-gradient(180deg, var(--bg-alt), var(--bg));
+  border-right:1px solid var(--border-soft); display:flex; flex-direction:column;
+  position:fixed; top:0; left:0; bottom:0; z-index:100; transition:transform .3s ease;
+}
+.sidebar-brand{
+  padding:28px 22px 18px; border-bottom:1px solid var(--border-soft);
+  display:flex; align-items:center; gap:12px;
+}
+.brand-glyph{
+  width:42px; height:42px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+  background:radial-gradient(circle at 35% 30%, var(--accent-soft), var(--accent-deep));
+  color:#fff; font-size:16px; box-shadow:0 0 18px rgba(193,125,146,.35); flex-shrink:0;
+}
+.brand-text .brand-title{font-family:var(--font-display); font-size:23px; font-weight:600; letter-spacing:.5px; line-height:1;}
+.brand-text .brand-sub{font-size:10.5px; color:var(--text-faint); letter-spacing:1.5px; margin-top:3px;}
+
+.sidebar-user{
+  padding:16px 22px; display:flex; align-items:center; gap:10px; border-bottom:1px solid var(--border-soft);
+  font-size:13.5px; color:var(--text-dim);
+}
+.sidebar-user i{color:var(--accent);}
+
+.nav-list{list-style:none; padding:14px 12px; flex:1; overflow-y:auto;}
+.nav-item{
+  display:flex; align-items:center; gap:12px; padding:11px 14px; border-radius:var(--radius-sm);
+  color:var(--text-dim); font-size:14.5px; cursor:pointer; margin-bottom:3px; position:relative;
+  transition:background .2s, color .2s, transform .15s; border:1px solid transparent;
+}
+.nav-item i.nav-ic{width:18px; text-align:center; color:var(--text-faint); transition:color .2s;}
+.nav-item:hover{background:var(--surface); color:var(--text);}
+.nav-item.active{
+  background:linear-gradient(90deg, rgba(193,125,146,.16), rgba(193,125,146,.02));
+  color:var(--text); border:1px solid var(--border-soft);
+  box-shadow: inset 0 0 0 1px rgba(193,125,146,.08);
+}
+.nav-item.active i.nav-ic{color:var(--accent);}
+.nav-item.active::before{
+  content:''; position:absolute; left:-12px; top:8px; bottom:8px; width:3px; border-radius:3px;
+  background:var(--accent); box-shadow:0 0 10px var(--accent);
+}
+
+.sidebar-foot{padding:14px 12px 20px; border-top:1px solid var(--border-soft);}
+
+/* ---- Main ---- */
+.main{
+  flex:1; margin-left:var(--sidebar-w); min-height:100vh; display:flex; flex-direction:column;
+}
+.topbar{
+  display:none; align-items:center; justify-content:space-between; padding:14px 16px;
+  background:var(--bg-alt); border-bottom:1px solid var(--border-soft); position:sticky; top:0; z-index:60;
+}
+.hamburger{
+  width:40px; height:40px; border-radius:10px; background:var(--surface); border:1px solid var(--border-soft);
+  color:var(--text); display:flex; align-items:center; justify-content:center; font-size:16px;
+}
+.content{padding:28px 34px 90px; max-width:1280px; width:100%; margin:0 auto;}
+
+.sidebar-overlay{display:none; position:fixed; inset:0; background:rgba(0,0,0,.5); z-index:90;}
+
+/* ---- Section header ---- */
+.section-head{display:flex; align-items:center; justify-content:space-between; margin-bottom:22px; flex-wrap:wrap; gap:12px;}
+.section-title{display:flex; align-items:center; gap:12px;}
+.section-title .sec-ic{
+  width:44px; height:44px; border-radius:13px; display:flex; align-items:center; justify-content:center;
+  background:var(--surface); border:1px solid var(--border-soft); color:var(--accent); font-size:17px;
+}
+.section-title h1{font-size:28px; font-weight:600; letter-spacing:.3px;}
+.section-title .sec-sub{font-size:12.5px; color:var(--text-faint); margin-top:2px;}
+
+/* ============================= COMPONENTS ============================= */
+.card{
+  background:linear-gradient(180deg, var(--surface), var(--surface-2) 140%);
+  border:1px solid var(--border-soft); border-radius:var(--radius); padding:20px 22px;
+  box-shadow:var(--shadow);
+}
+.card + .card{margin-top:16px;}
+.card-head{display:flex; align-items:center; justify-content:space-between; margin-bottom:14px;}
+.card-head h3{font-size:16.5px; font-weight:600; display:flex; align-items:center; gap:9px; letter-spacing:.2px;}
+.card-head h3 i{color:var(--accent); font-size:14px;}
+
+.grid{display:grid; gap:16px;}
+.grid-2{grid-template-columns:repeat(2,1fr);}
+.grid-3{grid-template-columns:repeat(3,1fr);}
+.grid-4{grid-template-columns:repeat(4,1fr);}
+@media(max-width:980px){.grid-4{grid-template-columns:repeat(2,1fr);} .grid-3{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:640px){.grid-2,.grid-3,.grid-4{grid-template-columns:1fr;}}
+
+.btn{
+  display:inline-flex; align-items:center; gap:8px; padding:10px 16px; border-radius:10px; border:1px solid var(--border-soft);
+  background:var(--surface-2); color:var(--text); font-size:13.5px; font-weight:500; transition:all .18s;
+}
+.btn:hover{border-color:var(--accent); color:var(--accent-soft); transform:translateY(-1px);}
+.btn-primary{background:linear-gradient(135deg, var(--accent), var(--accent-deep)); border:none; color:#fff;}
+.btn-primary:hover{filter:brightness(1.08); color:#fff; box-shadow:0 6px 18px rgba(193,125,146,.3);}
+.btn-ghost{background:transparent; border:1px dashed var(--border);}
+.btn-sm{padding:6px 11px; font-size:12px; border-radius:8px;}
+.btn-icon{width:34px; height:34px; padding:0; justify-content:center; border-radius:9px;}
+.btn-danger:hover{border-color:var(--danger); color:var(--danger);}
+
+.input, select.input, textarea.input{
+  width:100%; padding:10px 13px; border-radius:9px; border:1px solid var(--border-soft);
+  background:var(--bg-alt); color:var(--text); font-size:13.5px; outline:none; transition:border .15s;
+}
+.input:focus{border-color:var(--accent);}
+textarea.input{resize:vertical; min-height:80px; font-family:var(--font-body);}
+label.field-label{font-size:11.5px; color:var(--text-faint); letter-spacing:.4px; display:block; margin-bottom:6px;}
+.field{margin-bottom:14px;}
+.field-row{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
+
+.pill{
+  display:inline-flex; align-items:center; gap:6px; padding:4px 11px; border-radius:99px; font-size:11.5px;
+  background:var(--surface-2); border:1px solid var(--border-soft); color:var(--text-dim);
+}
+.pill-accent{background:rgba(193,125,146,.15); border-color:rgba(193,125,146,.3); color:var(--accent-soft);}
+.pill-gold{background:rgba(205,181,137,.15); border-color:rgba(205,181,137,.3); color:var(--gold);}
+
+.progress{height:9px; border-radius:99px; background:var(--bg-alt); border:1px solid var(--border-soft); overflow:hidden;}
+.progress > span{display:block; height:100%; background:linear-gradient(90deg, var(--accent-deep), var(--accent)); border-radius:99px; transition:width .4s ease;}
+
+.divider{
+  display:flex; align-items:center; gap:12px; margin:22px 0; color:var(--text-faint); font-size:11px;
+}
+.divider::before,.divider::after{content:''; flex:1; height:1px; background:var(--border-soft);}
+
+.empty-state{text-align:center; padding:40px 20px; color:var(--text-faint);}
+.empty-state i{font-size:26px; color:var(--accent); opacity:.6; margin-bottom:10px; display:block;}
+.empty-state p{font-size:13.5px; margin-top:6px;}
+
+.list-row{
+  display:flex; align-items:center; gap:12px; padding:11px 12px; border-radius:11px; border:1px solid transparent;
+  transition:background .15s, border .15s;
+}
+.list-row:hover{background:var(--surface-2); border-color:var(--border-soft);}
+.check-circle{
+  width:21px; height:21px; border-radius:50%; border:1.5px solid var(--border); flex-shrink:0; cursor:pointer;
+  display:flex; align-items:center; justify-content:center; color:transparent; font-size:11px; transition:all .15s;
+}
+.check-circle.done{background:var(--accent); border-color:var(--accent); color:#fff;}
+.row-title{flex:1; font-size:14px;}
+.row-title.done{text-decoration:line-through; color:var(--text-faint);}
+.row-actions{display:flex; gap:6px; opacity:0; transition:opacity .15s;}
+.list-row:hover .row-actions{opacity:1;}
+
+.quote-card{
+  position:relative; padding:26px 28px; border-radius:var(--radius);
+  background:linear-gradient(135deg, rgba(193,125,146,.12), rgba(183,164,214,.06)); border:1px solid var(--border-soft);
+  overflow:hidden;
+}
+.quote-card i.quote-deco{position:absolute; right:20px; top:16px; font-size:34px; color:var(--accent); opacity:.18;}
+.quote-card p.q{font-family:var(--font-display); font-size:21px; font-style:italic; line-height:1.5; color:var(--accent-soft); max-width:80%;}
+.quote-card .q-sign{margin-top:10px; font-size:11px; letter-spacing:1px; color:var(--text-faint);}
+
+.stat-card{padding:18px 20px;}
+.stat-card .stat-top{display:flex; align-items:center; justify-content:space-between; margin-bottom:8px;}
+.stat-card .stat-ic{color:var(--accent); font-size:14px;}
+.stat-card .stat-val{font-family:var(--font-display); font-size:30px; font-weight:600;}
+.stat-card .stat-label{font-size:11.5px; color:var(--text-faint); letter-spacing:.3px;}
+
+/* toggle chips (mood etc) */
+.chip-row{display:flex; flex-wrap:wrap; gap:8px;}
+.chip{
+  padding:9px 14px; border-radius:11px; border:1px solid var(--border-soft); background:var(--surface-2);
+  font-size:12.5px; display:flex; align-items:center; gap:7px; color:var(--text-dim); transition:all .15s;
+}
+.chip:hover{border-color:var(--accent);}
+.chip.selected{background:linear-gradient(135deg, var(--accent), var(--accent-deep)); border-color:transparent; color:#fff;}
+
+/* Modal */
+.modal-backdrop{
+  display:none; position:fixed; inset:0; background:rgba(12,8,14,.6); backdrop-filter:blur(3px); z-index:500;
+  align-items:center; justify-content:center; padding:20px;
+}
+.modal-backdrop.open{display:flex;}
+.modal{
+  background:var(--surface); border:1px solid var(--border-soft); border-radius:18px; width:100%; max-width:460px;
+  max-height:88vh; overflow-y:auto; box-shadow:0 20px 60px rgba(0,0,0,.5); animation:modalIn .18s ease;
+}
+@keyframes modalIn{from{opacity:0; transform:translateY(10px) scale(.98);} to{opacity:1; transform:none;}}
+.modal-head{display:flex; align-items:center; justify-content:space-between; padding:18px 20px; border-bottom:1px solid var(--border-soft);}
+.modal-head h3{font-size:17px; display:flex; align-items:center; gap:9px;}
+.modal-head h3 i{color:var(--accent);}
+.modal-body{padding:20px;}
+.modal-foot{padding:16px 20px; border-top:1px solid var(--border-soft); display:flex; justify-content:flex-end; gap:10px;}
+
+/* Toast */
+.toast-wrap{position:fixed; bottom:22px; right:22px; z-index:900; display:flex; flex-direction:column; gap:10px;}
+.toast{
+  background:var(--surface); border:1px solid var(--border-soft); border-left:3px solid var(--accent); padding:12px 16px;
+  border-radius:10px; font-size:13px; box-shadow:var(--shadow); display:flex; align-items:center; gap:10px;
+  animation:toastIn .25s ease;
+}
+.toast i{color:var(--accent);}
+@keyframes toastIn{from{opacity:0; transform:translateX(20px);} to{opacity:1; transform:none;}}
+
+/* Tabs */
+.tabs{display:flex; gap:6px; border-bottom:1px solid var(--border-soft); margin-bottom:18px; flex-wrap:wrap;}
+.tab-btn{
+  padding:9px 15px; font-size:13px; color:var(--text-faint); border-bottom:2px solid transparent; margin-bottom:-1px;
+}
+.tab-btn.active{color:var(--accent-soft); border-color:var(--accent);}
+
+/* Ornamental divider glyphs */
+.orn{text-align:center; color:var(--accent); opacity:.5; font-size:12px; letter-spacing:10px; margin:18px 0;}
+
+/* bottom mobile nav */
+.bottom-nav{
+  display:none; position:fixed; bottom:0; left:0; right:0; background:var(--bg-alt); border-top:1px solid var(--border-soft);
+  z-index:80; padding:6px 4px calc(6px + env(safe-area-inset-bottom,0px));
+  justify-content:space-around;
+}
+.bottom-nav .bn-item{display:flex; flex-direction:column; align-items:center; gap:3px; font-size:9.5px; color:var(--text-faint); padding:5px 8px; border-radius:9px;}
+.bottom-nav .bn-item.active{color:var(--accent);}
+.bottom-nav .bn-item i{font-size:15px;}
+
+/* Calendar */
+.cal-grid{display:grid; grid-template-columns:repeat(7,1fr); gap:6px;}
+.cal-dow{text-align:center; font-size:10.5px; color:var(--text-faint); letter-spacing:1px; padding-bottom:6px;}
+.cal-cell{
+  aspect-ratio:1; border-radius:10px; border:1px solid var(--border-soft); background:var(--bg-alt);
+  padding:7px; display:flex; flex-direction:column; cursor:pointer; transition:all .15s; position:relative; overflow:hidden;
+}
+.cal-cell:hover{border-color:var(--accent); background:var(--surface-2);}
+.cal-cell.empty{background:transparent; border-color:transparent; cursor:default;}
+.cal-cell.today{border-color:var(--accent); box-shadow:0 0 0 1px var(--accent);}
+.cal-cell .cd-num{font-size:12.5px; font-weight:500;}
+.cal-cell .cd-dots{display:flex; gap:3px; margin-top:auto; flex-wrap:wrap;}
+.cal-cell .cd-dot{width:5px; height:5px; border-radius:50%; background:var(--accent);}
+
+/* misc */
+.hr-soft{border:none; border-top:1px solid var(--border-soft); margin:18px 0;}
+.text-faint{color:var(--text-faint);}
+.text-dim{color:var(--text-dim);}
+.flex{display:flex; align-items:center;}
+.gap-8{gap:8px;} .gap-10{gap:10px;} .gap-12{gap:12px;}
+.mt-10{margin-top:10px;} .mt-16{margin-top:16px;} .mb-10{margin-bottom:10px;}
+.w-full{width:100%;}
+.flex-between{display:flex; align-items:center; justify-content:space-between;}
+.small{font-size:11.5px;}
+
+/* Responsive */
+@media(max-width:1020px){
+  .sidebar{transform:translateX(-100%);}
+  .sidebar.open{transform:translateX(0); box-shadow:20px 0 50px rgba(0,0,0,.4);}
+  .sidebar-overlay.open{display:block;}
+  .main{margin-left:0;}
+  .topbar{display:flex;}
+  .content{padding:20px 16px 100px;}
+  .grid-2, .grid-3, .grid-4{grid-template-columns:1fr 1fr;}
+  .bottom-nav{display:flex;}
+}
+@media(max-width:640px){
+  .content{padding:16px 12px 100px;}
+  .section-title h1{font-size:22px;}
+  .field-row{grid-template-columns:1fr;}
+  .grid-2, .grid-3, .grid-4{grid-template-columns:1fr;}
+  .quote-card p.q{max-width:100%; font-size:18px;}
+}
+</style>
+</head>
+<body>
+
+<div class="app" id="app"></div>
+<div class="modal-backdrop" id="modalBackdrop"><div class="modal" id="modalRoot"></div></div>
+<div class="toast-wrap" id="toastWrap"></div>
+
+<script>
+/* =====================================================================
+   NOCTURNE — Cute Gothic Life Planner
+   Single-file interactive planner. All data stored in localStorage.
+===================================================================== */
+(function(){
+"use strict";
+
+const STORAGE_KEY = 'nocturne_planner_v1';
+
+const NAV = [
+  {id:'dashboard', label:'Dashboard', icon:'fa-house'},
+  {id:'calendar', label:'Calendar', icon:'fa-calendar-days'},
+  {id:'goals', label:'Goals & Vision', icon:'fa-wand-magic-sparkles'},
+  {id:'daily', label:'Daily Planner', icon:'fa-list-check'},
+  {id:'habits', label:'Habits & Routines', icon:'fa-bat'},
+  {id:'wellness', label:'Wellness & Mood', icon:'fa-heart'},
+  {id:'finance', label:'Finance', icon:'fa-coins'},
+  {id:'admin', label:'Life Admin', icon:'fa-key'},
+  {id:'journal', label:'Journal & Memories', icon:'fa-book-open'},
+  {id:'settings', label:'Settings', icon:'fa-gear'},
+];
+
+const THEMES = [
+  {id:'midnight-rose', name:'Midnight Rose'},
+  {id:'dark-romance', name:'Dark Romance'},
+  {id:'gothic-lavender', name:'Gothic Lavender'},
+  {id:'burgundy-moon', name:'Burgundy Moon'},
+  {id:'cute-bat', name:'Cute Bat'},
+  {id:'victorian-noir', name:'Victorian Noir'},
+];
+
+const QUOTES = [
+  "Create a life that feels like your own story.",
+  "Bloom in the dark, then step into your own light.",
+  "Soft heart, sharp mind, gothic soul.",
+  "The moon does not fear the dark — she illuminates it.",
+  "Some of the most beautiful things grow in shadow.",
+  "Be the quiet storm and the calm after it.",
+  "Elegance is knowing which chapter to close.",
+  "A romantic heart keeps its own gothic hours.",
+];
+
+function uid(){ return 'id'+Date.now().toString(36)+Math.random().toString(36).slice(2,8); }
+function todayISO(){ const d=new Date(); return d.toISOString().slice(0,10); }
+function escapeHtml(s){ return (s==null?'':String(s)).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function clamp(n,min,max){ return Math.max(min,Math.min(max,n)); }
+
+function defaultState(){
+  return {
+    settings:{
+      name:'Friend', greeting:'Good evening', startOfWeek:'Sunday', dateFormat:'MMM D, YYYY',
+      timeFormat:'12h', theme:'midnight-rose', customAccent:'', hasSeenWelcome:false
+    },
+    tasks:[], goals:[], habits:[],
+    routines:{morning:[], night:[], selfcare:[], custom:[]},
+    events:[],
+    moods:[], // {id,date,mood,note}
+    wellness:{sleep:[], water:[], energy:[]}, // arrays of {id,date,value}
+    gratitude:[], // {id,date,items:[3], smile, proud}
+    finance:{income:[], expenses:[], savingsGoals:[], bills:[], budgets:{Housing:0,Food:0,Shopping:0,Transportation:0,Entertainment:0,Personal:0,Other:0}},
+    admin:{items:[], contacts:[], shopping:[], notes:[]},
+    journal:[], brainDump:'', memories:[],
+    media:{books:[], movies:[], music:[]},
+    dailyPlans:{}, // date -> {topPriorities:[3], todos:[], notes:'', water:0, mood:'', energy:'', affirmation:'', reflection:''}
+  };
+}
+
+let state = load();
+function load(){
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(!raw) return defaultState();
+    const parsed = JSON.parse(raw);
+    return Object.assign(defaultState(), parsed);
+  }catch(e){ return defaultState(); }
+}
+function save(){
+  try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }catch(e){ toast('Could not save — storage may be full', 'fa-triangle-exclamation'); }
+}
+
+let currentSection = 'dashboard';
+let calState = { year:new Date().getFullYear(), month:new Date().getMonth() };
+let dailyDate = todayISO();
+
+/* ---------------------------- TOAST ---------------------------- */
+function toast(msg, icon){
+  const wrap = document.getElementById('toastWrap');
+  const el = document.createElement('div');
+  el.className='toast';
+  el.innerHTML = `<i class="fa-solid ${icon||'fa-moon'}"></i><span>${escapeHtml(msg)}</span>`;
+  wrap.appendChild(el);
+  setTimeout(()=>{ el.style.transition='opacity .3s, transform .3s'; el.style.opacity='0'; el.style.transform='translateX(20px)'; setTimeout(()=>el.remove(),300); }, 2400);
+}
+
+/* ---------------------------- MODAL ---------------------------- */
+function openModal(html){
+  document.getElementById('modalRoot').innerHTML = html;
+  document.getElementById('modalBackdrop').classList.add('open');
+}
+function closeModal(){
+  document.getElementById('modalBackdrop').classList.remove('open');
+  document.getElementById('modalRoot').innerHTML='';
+}
+document.getElementById('modalBackdrop').addEventListener('click', function(e){
+  if(e.target===this) closeModal();
+});
+
+/* ============================================================
+   SHELL RENDER
+============================================================ */
+function renderShell(){
+  const app = document.getElementById('app');
+  app.innerHTML = `
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-brand">
+        <div class="brand-glyph"><i class="fa-solid fa-moon"></i></div>
+        <div class="brand-text">
+          <div class="brand-title">Nocturne</div>
+          <div class="brand-sub">LIFE PLANNER</div>
+        </div>
+      </div>
+      <div class="sidebar-user">
+        <i class="fa-solid fa-sparkles"></i>
+        <span id="sidebarUserName">${escapeHtml(state.settings.name)}</span>
+      </div>
+      <ul class="nav-list" id="navList"></ul>
+      <div class="sidebar-foot">
+        <button class="btn w-full" style="justify-content:center" onclick="App.go('settings')"><i class="fa-solid fa-gear"></i> Settings</button>
+      </div>
+    </aside>
+    <div class="main">
+      <div class="topbar">
+        <button class="hamburger" onclick="App.toggleSidebar()"><i class="fa-solid fa-bars"></i></button>
+        <div class="flex gap-8"><i class="fa-solid fa-moon" style="color:var(--accent)"></i><strong style="font-family:var(--font-display); font-size:18px;">Nocturne</strong></div>
+        <div style="width:40px"></div>
+      </div>
+      <div class="content" id="content"></div>
+    </div>
+    <nav class="bottom-nav" id="bottomNav"></nav>
+  `;
+  document.getElementById('sidebarOverlay').addEventListener('click', ()=>App.toggleSidebar(false));
+  renderNav();
+}
+
+function renderNav(){
+  const navList = document.getElementById('navList');
+  navList.innerHTML = NAV.map(n=>`
+    <li class="nav-item ${currentSection===n.id?'active':''}" onclick="App.go('${n.id}')">
+      <i class="fa-solid ${n.icon} nav-ic"></i><span>${n.label}</span>
+    </li>`).join('');
+
+  const bottomNav = document.getElementById('bottomNav');
+  const bnItems = ['dashboard','calendar','daily','habits','journal'];
+  bottomNav.innerHTML = bnItems.map(id=>{
+    const n = NAV.find(x=>x.id===id);
+    return `<div class="bn-item ${currentSection===id?'active':''}" onclick="App.go('${id}')"><i class="fa-solid ${n.icon}"></i><span>${n.label.split(' ')[0]}</span></div>`;
+  }).join('') + `<div class="bn-item ${currentSection==='settings'?'active':''}" onclick="App.go('settings')"><i class="fa-solid fa-gear"></i><span>More</span></div>`;
+}
+
+function applyTheme(){
+  const t = state.settings.theme || 'midnight-rose';
+  if(t==='custom' && state.settings.customAccent){
+    document.documentElement.removeAttribute('data-theme');
+    document.documentElement.style.setProperty('--accent', state.settings.customAccent);
+  } else {
+    document.documentElement.style.removeProperty('--accent');
+    if(t==='midnight-rose') document.documentElement.removeAttribute('data-theme');
+    else document.documentElement.setAttribute('data-theme', t);
+  }
+}
+
+/* ============================================================
+   ROUTER
+============================================================ */
+const RENDERERS = {}; // filled below per section
+
+function go(section){
+  currentSection = section;
+  renderNav();
+  toggleSidebar(false);
+  const content = document.getElementById('content');
+  content.innerHTML = RENDERERS[section] ? RENDERERS[section]() : '';
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+function toggleSidebar(force){
+  const sb = document.getElementById('sidebar');
+  const ov = document.getElementById('sidebarOverlay');
+  const open = force!==undefined ? force : !sb.classList.contains('open');
+  sb.classList.toggle('open', open);
+  ov.classList.toggle('open', open);
+}
+
+/* ============================================================
+   HELPERS: quick stat calcs
+============================================================ */
+function fmtMoney(n){ n = Number(n)||0; return '$' + n.toLocaleString(undefined,{minimumFractionDigits:2, maximumFractionDigits:2}); }
+function fmtDatePretty(iso){
+  if(!iso) return '';
+  const d = new Date(iso+'T00:00:00');
+  return d.toLocaleDateString(undefined,{weekday:'short', month:'short', day:'numeric', year:'numeric'});
+}
+function greetingNow(){
+  const h = new Date().getHours();
+  if(h<12) return 'Good morning';
+  if(h<18) return 'Good afternoon';
+  return 'Good evening';
+}
+function habitStreak(habit){
+  let streak=0; let d = new Date();
+  for(;;){
+    const iso = d.toISOString().slice(0,10);
+    if(habit.log && habit.log[iso]){ streak++; d.setDate(d.getDate()-1); } else break;
+  }
+  return streak;
+}
+function todayTasks(){ return state.tasks.filter(t=>!t.date || t.date===todayISO()); }
+function upcomingEvents(limit){
+  const now = todayISO();
+  return state.events.filter(e=>e.date>=now).sort((a,b)=>a.date.localeCompare(b.date)).slice(0, limit||5);
+}
+function goalProgressAvg(){
+  if(!state.goals.length) return 0;
+  return Math.round(state.goals.reduce((s,g)=>s+(Number(g.progress)||0),0)/state.goals.length);
+}
+function habitsCompletionToday(){
+  if(!state.habits.length) return 0;
+  const t = todayISO();
+  const done = state.habits.filter(h=>h.log && h.log[t]).length;
+  return Math.round((done/state.habits.length)*100);
+}
+
+/* ============================================================
+   DASHBOARD
+============================================================ */
+RENDERERS.dashboard = function(){
+  const tt = todayTasks();
+  const doneCt = tt.filter(t=>t.done).length;
+  const ev = upcomingEvents(4);
+  const quote = QUOTES[new Date().getDate() % QUOTES.length];
+  const moodToday = state.moods.find(m=>m.date===todayISO());
+
+  return `
+  <div class="section-head">
+    <div class="section-title">
+      <div class="sec-ic"><i class="fa-solid fa-house"></i></div>
+      <div><h1>${greetingNow()}, ${escapeHtml(state.settings.name)}</h1>
+      <div class="sec-sub"><i class="fa-solid fa-moon"></i> ${fmtDatePretty(todayISO())} · ${new Date().toLocaleTimeString(undefined,{hour:'numeric',minute:'2-digit'})}</div></div>
+    </div>
+    <button class="btn btn-primary" onclick="App.openTaskModal()"><i class="fa-solid fa-plus"></i> Quick Add Task</button>
+  </div>
+
+  <div class="grid grid-4">
+    <div class="card stat-card"><div class="stat-top"><span class="stat-label">TASKS TODAY</span><i class="fa-solid fa-circle-check stat-ic"></i></div><div class="stat-val">${doneCt}/${tt.length}</div><div class="progress mt-10"><span style="width:${tt.length?Math.round(doneCt/tt.length*100):0}%"></span></div></div>
+    <div class="card stat-card"><div class="stat-top"><span class="stat-label">HABITS TODAY</span><i class="fa-solid fa-bat stat-ic"></i></div><div class="stat-val">${habitsCompletionToday()}%</div><div class="progress mt-10"><span style="width:${habitsCompletionToday()}%"></span></div></div>
+    <div class="card stat-card"><div class="stat-top"><span class="stat-label">GOAL PROGRESS</span><i class="fa-solid fa-bullseye stat-ic"></i></div><div class="stat-val">${goalProgressAvg()}%</div><div class="progress mt-10"><span style="width:${goalProgressAvg()}%"></span></div></div>
+    <div class="card stat-card"><div class="stat-top"><span class="stat-label">MOOD TODAY</span><i class="fa-solid fa-face-smile stat-ic"></i></div><div class="stat-val" style="font-size:20px">${moodToday?escapeHtml(moodToday.mood):'—'}</div><div class="small text-faint mt-10">${moodToday?'Logged':'Not logged yet'}</div></div>
+  </div>
+
+  <div class="grid grid-2 mt-16" style="align-items:start">
+    <div>
+      <div class="card">
+        <div class="card-head"><h3><i class="fa-solid fa-star"></i> Today's Focus</h3></div>
+        ${renderFocusCards()}
+      </div>
+      <div class="card">
+        <div class="card-head"><h3><i class="fa-solid fa-circle-check"></i> Quick Tasks</h3><button class="btn btn-sm" onclick="App.openTaskModal()"><i class="fa-solid fa-plus"></i> Add</button></div>
+        ${renderTaskList(tt.slice(0,6))}
+      </div>
+    </div>
+    <div>
+      <div class="quote-card">
+        <i class="fa-solid fa-feather quote-deco"></i>
+        <p class="q">"${escapeHtml(quote)}"</p>
+        <div class="q-sign">🌙 a little nocturnal wisdom</div>
+      </div>
+      <div class="card mt-16">
+        <div class="card-head"><h3><i class="fa-solid fa-calendar-check"></i> Upcoming Events</h3><button class="btn btn-sm" onclick="App.go('calendar')"><i class="fa-solid fa-calendar-days"></i></button></div>
+        ${ev.length? ev.map(e=>`<div class="list-row"><i class="fa-solid ${e.type==='birthday'?'fa-cake-candles':'fa-calendar-check'}" style="color:var(--accent)"></i><div class="row-title">${escapeHtml(e.title)}<div class="small text-faint">${fmtDatePretty(e.date)}</div></div></div>`).join('') : emptyState('fa-moon','No upcoming events yet.')}
+      </div>
+      <div class="card mt-16">
+        <div class="card-head"><h3><i class="fa-solid fa-face-smile"></i> Mood Check-In</h3></div>
+        ${renderMoodChips()}
+      </div>
+    </div>
+  </div>
+  `;
+};
+
+function renderFocusCards(){
+  const today = todayISO();
+  const dp = state.dailyPlans[today] || {topPriorities:['','','']};
+  const labels = ['Main Priority','Important Task','Personal Goal'];
+  const icons = ['fa-star','fa-circle-check','fa-bullseye'];
+  return `<div class="grid grid-3">` + labels.map((l,i)=>`
+    <div class="card" style="padding:14px 16px; background:var(--surface-2)">
+      <div class="small text-faint flex gap-8"><i class="fa-solid ${icons[i]}" style="color:var(--accent)"></i>${l}</div>
+      <input class="input mt-10" placeholder="Type here..." value="${escapeHtml((dp.topPriorities||[])[i]||'')}" onchange="App.setFocus(${i}, this.value)">
+    </div>`).join('') + `</div>`;
+}
+function setFocus(i, val){
+  const today = todayISO();
+  if(!state.dailyPlans[today]) state.dailyPlans[today] = {topPriorities:['','','']};
+  if(!state.dailyPlans[today].topPriorities) state.dailyPlans[today].topPriorities=['','',''];
+  state.dailyPlans[today].topPriorities[i]=val;
+  save();
+}
+
+function renderTaskList(tasks){
+  if(!tasks.length) return emptyState('fa-feather','No tasks yet — add your first one.');
+  return tasks.map(t=>`
+    <div class="list-row">
+      <div class="check-circle ${t.done?'done':''}" onclick="App.toggleTask('${t.id}')">${t.done?'<i class=\"fa-solid fa-check\"></i>':''}</div>
+      <div class="row-title ${t.done?'done':''}">${escapeHtml(t.title)} ${t.priority?'<span class=\"pill pill-accent\" style=\"margin-left:6px\"><i class=\"fa-solid fa-star\"></i> priority</span>':''}</div>
+      <div class="row-actions">
+        <button class="btn btn-icon btn-sm" onclick="App.openTaskModal('${t.id}')"><i class="fa-solid fa-pen"></i></button>
+        <button class="btn btn-icon btn-sm btn-danger" onclick="App.deleteTask('${t.id}')"><i class="fa-solid fa-trash"></i></button>
+      </div>
+    </div>`).join('');
+}
+
+function renderMoodChips(){
+  const moods = [['Happy','fa-face-laugh'],['Calm','fa-face-smile'],['Productive','fa-bolt'],['Neutral','fa-face-meh'],['Sad','fa-face-frown'],['Stressed','fa-face-dizzy'],['Tired','fa-bed'],['Overwhelmed','fa-cloud-rain']];
+  const today = state.moods.find(m=>m.date===todayISO());
+  return `<div class="chip-row">` + moods.map(([m,ic])=>`
+    <div class="chip ${today&&today.mood===m?'selected':''}" onclick="App.setMood('${m}')"><i class="fa-solid ${ic}"></i>${m}</div>`).join('') + `</div>`;
+}
+function setMood(m){
+  const today = todayISO();
+  const existing = state.moods.find(x=>x.date===today);
+  if(existing) existing.mood = m; else state.moods.push({id:uid(), date:today, mood:m, note:''});
+  save(); go(currentSection);
+  toast('Mood logged: '+m, 'fa-heart');
+}
+
+function emptyState(icon, text){
+  return `<div class="empty-state"><i class="fa-solid ${icon}"></i><p>${escapeHtml(text)}</p></div>`;
+}
+
+/* ---- Task CRUD ---- */
+function openTaskModal(id){
+  const t = id ? state.tasks.find(x=>x.id===id) : null;
+  openModal(`
+    <div class="modal-head"><h3><i class="fa-solid fa-circle-check"></i> ${t?'Edit':'Add'} Task</h3><button class="btn btn-icon btn-sm" onclick="App.closeModal()"><i class="fa-solid fa-xmark"></i></button></div>
+    <div class="modal-body">
+      <div class="field"><label class="field-label">TASK</label><input class="input" id="taskTitle" placeholder="What needs doing?" value="${t?escapeHtml(t.title):''}"></div>
+      <div class="field-row">
+        <div class="field"><label class="field-label">DUE DATE</label><input type="date" class="input" id="taskDate" value="${t?t.date||'':todayISO()}"></div>
+        <div class="field"><label class="field-label">PRIORITY</label>
+          <select class="input" id="taskPriority"><option value="">Normal</option><option value="1" ${t&&t.priority?'selected':''}>High Priority</option></select>
+        </div>
+      </div>
+    </div>
+    <div class="modal-foot">
+      ${t?`<button class="btn btn-danger" onclick="App.deleteTask('${t.id}')"><i class="fa-solid fa-trash"></i> Delete</button>`:''}
+      <button class="btn" onclick="App.closeModal()">Cancel</button>
+      <button class="btn btn-primary" onclick="App.saveTask('${t?t.id:''}')"><i class="fa-solid fa-floppy-disk"></i> Save</button>
+    </div>
+  `);
+}
+function saveTask(id){
+  const title = document.getElementById('taskTitle').value.trim();
+  if(!title){ toast('Please enter a task title', 'fa-triangle-exclamation'); return; }
+  const date = document.getElementById('taskDate').value;
+  const priority = document.getElementById('taskPriority').value;
+  if(id){
+    const t = state.tasks.find(x=>x.id===id);
+    Object.assign(t, {title, date, priority});
+  } else {
+    state.tasks.push({id:uid(), title, date, priority, done:false});
+  }
+  save(); closeModal(); go(currentSection); toast('Task saved', 'fa-floppy-disk');
+}
+function toggleTask(id){ const t=state.tasks.find(x=>x.id===id); if(t){t.done=!t.done; save(); go(currentSection);} }
+function deleteTask(id){ state.tasks = state.tasks.filter(x=>x.id!==id); save(); closeModal(); go(currentSection); toast('Task deleted','fa-trash'); }
+
+/* ============================================================
+   CALENDAR
+============================================================ */
+RENDERERS.calendar = function(){
+  const {year, month} = calState;
+  const first = new Date(year, month, 1);
+  const startDow = first.getDay();
+  const daysInMonth = new Date(year, month+1, 0).getDate();
+  const monthName = first.toLocaleDateString(undefined,{month:'long', year:'numeric'});
+  const dows = ['S','M','T','W','T','F','S'];
+
+  let cells = '';
+  for(let i=0;i<startDow;i++) cells += `<div class="cal-cell empty"></div>`;
+  for(let d=1; d<=daysInMonth; d++){
+    const iso = `${year}-${String(month+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+    const isToday = iso===todayISO();
+    const dayEvents = state.events.filter(e=>e.date===iso);
+    cells += `<div class="cal-cell ${isToday?'today':''}" onclick="App.openEventModal(null,'${iso}')">
+      <span class="cd-num">${d}</span>
+      <div class="cd-dots">${dayEvents.slice(0,4).map(()=>'<span class=\"cd-dot\"></span>').join('')}</div>
+    </div>`;
+  }
+
+  const upcoming = state.events.slice().sort((a,b)=>a.date.localeCompare(b.date));
+
+  return `
+  <div class="section-head">
+    <div class="section-title"><div class="sec-ic"><i class="fa-solid fa-calendar-days"></i></div><div><h1>Calendar</h1><div class="sec-sub">Events, birthdays & reminders</div></div></div>
+    <button class="btn btn-primary" onclick="App.openEventModal()"><i class="fa-solid fa-plus"></i> Add Event</button>
+  </div>
+  <div class="grid grid-2" style="grid-template-columns:1.6fr 1fr; align-items:start">
+    <div class="card">
+      <div class="flex-between mb-10">
+        <button class="btn btn-icon btn-sm" onclick="App.calNav(-1)"><i class="fa-solid fa-chevron-left"></i></button>
+        <h3 style="font-family:var(--font-display); font-size:20px">${monthName}</h3>
+        <button class="btn btn-icon btn-sm" onclick="App.calNav(1)"><i class="fa-solid fa-chevron-right"></i></button>
+      </div>
+      <div class="cal-grid">${dows.map(d=>`<div class="cal-dow">${d}</div>`).join('')}${cells}</div>
+    </div>
+    <div class="card">
+      <div class="card-head"><h3><i class="fa-solid fa-bell"></i> All Events</h3></div>
+      ${upcoming.length? upcoming.map(e=>`
+        <div class="list-row">
+          <i class="fa-solid ${e.type==='birthday'?'fa-cake-candles':e.type==='reminder'?'fa-bell':'fa-calendar-check'}" style="color:var(--accent)"></i>
+          <div class="row-title">${escapeHtml(e.title)}<div class="small text-faint">${fmtDatePretty(e.date)} · ${escapeHtml(e.type||'event')}</div></div>
+          <div class="row-actions">
+            <button class="btn btn-icon btn-sm" onclick="App.openEventModal('${e.id}')"><i class="fa-solid fa-pen"></i></button>
+            <button class="btn btn-icon btn-sm btn-danger" onclick="App.deleteEvent('${e.id}')"><i class="fa-solid fa-trash"></i></button>
+          </div>
+        </div>`).join('') : emptyState('fa-calendar-days','No events yet.')}
+    </div>
+  </div>`;
+};
+function calNav(dir){
+  calState.month += dir;
+  if(calState.month<0){ calState.month=11; calState.year--; }
+  if(calState.month>11){ calState.month=0; calState.year++; }
+  go('calendar');
+}
+function openEventModal(id, presetDate){
+  const e = id ? state.events.find(x=>x.id===id) : null;
+  openModal(`
+    <div class="modal-head"><h3><i class="fa-solid fa-calendar-check"></i> ${e?'Edit':'Add'} Event</h3><button class="btn btn-icon btn-sm" onclick="App.closeModal()"><i class="fa-solid fa-xmark"></i></button></div>
+    <div class="modal-body">
+      <div class="field"><label class="field-label">TITLE</label><input class="input" id="evTitle" value="${e?escapeHtml(e.title):''}"></div>
+      <div class="field-row">
+        <div class="field"><label class="field-label">DATE</label><input type="date" class="input" id="evDate" value="${e?e.date:(presetDate||todayISO())}"></div>
+        <div class="field"><label class="field-label">TYPE</label>
+          <select class="input" id="evType">
+            <option value="event" ${e&&e.type==='event'?'selected':''}>Appointment / Event</option>
+            <option value="birthday" ${e&&e.type==='birthday'?'selected':''}>Birthday</option>
+            <option value="reminder" ${e&&e.type==='reminder'?'selected':''}>Reminder</option>
+            <option value="important" ${e&&e.type==='important'?'selected':''}>Important Date</option>
+          </select>
+        </div>
+      </div>
+      <div class="field"><label class="field-label">NOTES</label><textarea class="input" id="evNotes">${e?escapeHtml(e.notes||''):''}</textarea></div>
+    </div>
+    <div class="modal-foot">
+      ${e?`<button class="btn btn-danger" onclick="App.deleteEvent('${e.id}')"><i class="fa-solid fa-trash"></i> Delete</button>`:''}
+      <button class="btn" onclick="App.closeModal()">Cancel</button>
+      <button class="btn btn-primary" onclick="App.saveEvent('${e?e.id:''}')"><i class="fa-solid fa-floppy-disk"></i> Save</button>
+    </div>
+  `);
+}
+function saveEvent(id){
+  const title = document.getElementById('evTitle').value.trim();
+  if(!title){ toast('Please enter an event title','fa-triangle-exclamation'); return; }
+  const date = document.getElementById('evDate').value;
+  const type = document.getElementById('evType').value;
+  const notes = document.getElementById('evNotes').value;
+  if(id){ Object.assign(state.events.find(x=>x.id===id), {title,date,type,notes}); }
+  else { state.events.push({id:uid(), title, date, type, notes}); }
+  save(); closeModal(); go('calendar'); toast('Event saved','fa-calendar-check');
+}
+function deleteEvent(id){ state.events = state.events.filter(x=>x.id!==id); save(); closeModal(); go('calendar'); toast('Event deleted','fa-trash'); }
+
+/* ============================================================
+   GOALS & VISION
+============================================================ */
+RENDERERS.goals = function(){
+  const cats = ['Personal','Career','Finance','Health','Relationships','Lifestyle'];
+  return `
+  <div class="section-head">
+    <div class="section-title"><div class="sec-ic"><i class="fa-solid fa-wand-magic-sparkles"></i></div><div><h1>Goals & Vision</h1><div class="sec-sub">Dream it, plan it, track it</div></div></div>
+    <button class="btn btn-primary" onclick="App.openGoalModal()"><i class="fa-solid fa-plus"></i> Add Goal</button>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><h3><i class="fa-solid fa-star"></i> Life Vision</h3></div>
+    <div class="grid grid-2">
+      ${['Dream Life','Future Self','Things I Want to Experience','Places I Want to Visit','Personal Dreams','Lifestyle Vision'].map(k=>`
+        <div class="field"><label class="field-label">${k.toUpperCase()}</label><textarea class="input" style="min-height:60px" onchange="App.setVision('${k}', this.value)">${escapeHtml((state.vision&&state.vision[k])||'')}</textarea></div>
+      `).join('')}
+    </div>
+  </div>
+
+  <div class="orn">✦ ⋆ 🌙 ⋆ ✦</div>
+
+  <div class="card-head" style="margin-bottom:14px"><h3 style="font-size:18px"><i class="fa-solid fa-bullseye"></i> Goals</h3></div>
+  <div class="grid grid-3">
+    ${state.goals.length? state.goals.map(g=>`
+      <div class="card">
+        <div class="flex-between mb-10"><span class="pill pill-accent">${escapeHtml(g.category||'Personal')}</span><span class="pill">${g.status||'In Progress'}</span></div>
+        <h4 style="font-size:16px; margin-bottom:6px">${escapeHtml(g.name)}</h4>
+        <p class="small text-dim" style="min-height:32px">${escapeHtml(g.description||'')}</p>
+        ${g.deadline?`<div class="small text-faint mt-10"><i class="fa-solid fa-calendar-check"></i> Due ${fmtDatePretty(g.deadline)}</div>`:''}
+        <div class="flex-between mt-10 small text-faint"><span>Progress</span><span>${g.progress||0}%</span></div>
+        <div class="progress mt-10"><span style="width:${g.progress||0}%"></span></div>
+        <div class="flex gap-8 mt-16">
+          <button class="btn btn-sm" style="flex:1; justify-content:center" onclick="App.openGoalModal('${g.id}')"><i class="fa-solid fa-pen"></i> Edit</button>
+          <button class="btn btn-sm btn-danger btn-icon" onclick="App.deleteGoal('${g.id}')"><i class="fa-solid fa-trash"></i></button>
+        </div>
+      </div>`).join('') : `<div class="card">${emptyState('fa-bullseye','No goals yet — set your first intention.')}</div>`}
+  </div>`;
+};
+function setVision(key, val){ if(!state.vision) state.vision={}; state.vision[key]=val; save(); }
+function openGoalModal(id){
+  const g = id ? state.goals.find(x=>x.id===id) : null;
+  const cats = ['Personal','Career','Finance','Health','Relationships','Lifestyle'];
+  openModal(`
+    <div class="modal-head"><h3><i class="fa-solid fa-bullseye"></i> ${g?'Edit':'New'} Goal</h3><button class="btn btn-icon btn-sm" onclick="App.closeModal()"><i class="fa-solid fa-xmark"></i></button></div>
+    <div class="modal-body">
+      <div class="field"><label class="field-label">GOAL NAME</label><input class="input" id="goalName" value="${g?escapeHtml(g.name):''}"></div>
+      <div class="field"><label class="field-label">DESCRIPTION</label><textarea class="input" id="goalDesc">${g?escapeHtml(g.description||''):''}</textarea></div>
+      <div class="field-row">
+        <div class="field"><label class="field-label">CATEGORY</label><select class="input" id="goalCat">${cats.map(c=>`<option ${g&&g.category===c?'selected':''}>${c}</option>`).join('')}</select></div>
+        <div class="field"><label class="field-label">DEADLINE</label><input type="date" class="input" id="goalDeadline" value="${g?g.deadline||'':''}"></div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label class="field-label">PRIORITY</label><select class="input" id="goalPriority"><option>Low</option><option>Medium</option><option>High</option></select></div>
+        <div class="field"><label class="field-label">PROGRESS %</label><input type="number" min="0" max="100" class="input" id="goalProgress" value="${g?g.progress||0:0}"></div>
+      </div>
+      <div class="field"><label class="field-label">STATUS</label>
+        <select class="input" id="goalStatus"><option ${g&&g.status==='Not Started'?'selected':''}>Not Started</option><option ${!g||g.status==='In Progress'?'selected':''}>In Progress</option><option ${g&&g.status==='Complete'?'selected':''}>Complete</option></select>
+      </div>
+    </div>
+    <div class="modal-foot">
+      ${g?`<button class="btn btn-danger" onclick="App.deleteGoal('${g.id}')"><i class="fa-solid fa-trash"></i></button>`:''}
+      <button class="btn" onclick="App.closeModal()">Cancel</button>
+      <button class="btn btn-primary" onclick="App.saveGoal('${g?g.id:''}')"><i class="fa-solid fa-floppy-disk"></i> Save</button>
+    </div>`);
+}
+function saveGoal(id){
+  const name = document.getElementById('goalName').value.trim();
+  if(!name){ toast('Please name your goal','fa-triangle-exclamation'); return; }
+  const data = {
+    name, description:document.getElementById('goalDesc').value, category:document.getElementById('goalCat').value,
+    deadline:document.getElementById('goalDeadline').value, priority:document.getElementById('goalPriority').value,
+    progress:clamp(Number(document.getElementById('goalProgress').value)||0,0,100), status:document.getElementById('goalStatus').value
+  };
+  if(id) Object.assign(state.goals.find(x=>x.id===id), data);
+  else state.goals.push(Object.assign({id:uid(), milestones:[]}, data));
+  save(); closeModal(); go('goals'); toast('Goal saved','fa-bullseye');
+}
+function deleteGoal(id){ state.goals=state.goals.filter(x=>x.id!==id); save(); closeModal(); go('goals'); toast('Goal removed','fa-trash'); }
+
+/* ============================================================
+   DAILY PLANNER
+============================================================ */
+function getDailyPlan(date){
+  if(!state.dailyPlans[date]) state.dailyPlans[date] = {topPriorities:['','',''], todos:[], notes:'', water:0, mood:'', energy:'', affirmation:'', reflection:''};
+  return state.dailyPlans[date];
+}
+RENDERERS.daily = function(){
+  const dp = getDailyPlan(dailyDate);
+  const affirmations = ["I move through my day with quiet confidence.","My pace is my own — I honor it.","I am allowed to rest and still be worthy.","Today, I choose softness over pressure.","I am becoming who I'm meant to be."];
+  const affirmation = dp.affirmation || affirmations[new Date(dailyDate).getDate()%affirmations.length];
+
+  return `
+  <div class="section-head">
+    <div class="section-title"><div class="sec-ic"><i class="fa-solid fa-list-check"></i></div><div><h1>Daily Planner</h1><div class="sec-sub">Plan your day, hour by hour</div></div></div>
+    <input type="date" class="input" style="width:auto" value="${dailyDate}" onchange="App.setDailyDate(this.value)">
+  </div>
+
+  <div class="grid grid-3">
+    ${['Main Priority','Important Task','Personal Goal'].map((l,i)=>`
+      <div class="card" style="padding:14px 16px">
+        <div class="small text-faint flex gap-8"><i class="fa-solid fa-star" style="color:var(--accent)"></i>${l}</div>
+        <input class="input mt-10" value="${escapeHtml((dp.topPriorities||[])[i]||'')}" onchange="App.setDailyPriority(${i}, this.value)">
+      </div>`).join('')}
+  </div>
+
+  <div class="grid grid-2 mt-16" style="align-items:start">
+    <div class="card">
+      <div class="card-head"><h3><i class="fa-solid fa-circle-check"></i> To-Do List</h3><button class="btn btn-sm" onclick="App.openDailyTodoModal()"><i class="fa-solid fa-plus"></i></button></div>
+      ${dp.todos.length? dp.todos.map(td=>`
+        <div class="list-row">
+          <div class="check-circle ${td.done?'done':''}" onclick="App.toggleDailyTodo('${td.id}')">${td.done?'<i class=\"fa-solid fa-check\"></i>':''}</div>
+          <div class="row-title ${td.done?'done':''}">${escapeHtml(td.text)}</div>
+          <div class="row-actions"><button class="btn btn-icon btn-sm btn-danger" onclick="App.deleteDailyTodo('${td.id}')"><i class="fa-solid fa-trash"></i></button></div>
+        </div>`).join('') : emptyState('fa-feather','No to-dos for this day yet.')}
+      <div class="flex-between mt-16 small text-faint"><span>Completion</span><span>${dp.todos.length?Math.round(dp.todos.filter(t=>t.done).length/dp.todos.length*100):0}%</span></div>
+      <div class="progress mt-10"><span style="width:${dp.todos.length?Math.round(dp.todos.filter(t=>t.done).length/dp.todos.length*100):0}%"></span></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><h3><i class="fa-solid fa-clock"></i> Hourly Schedule</h3></div>
+      <div style="max-height:340px; overflow-y:auto">
+        ${['Morning','Afternoon','Evening'].map(block=>`
+          <div class="small text-faint mt-10" style="letter-spacing:1px">${block.toUpperCase()}</div>
+          ${(block==='Morning'?['7 AM','8 AM','9 AM','10 AM','11 AM']:block==='Afternoon'?['12 PM','1 PM','2 PM','3 PM','4 PM']:['5 PM','6 PM','7 PM','8 PM','9 PM']).map(h=>`
+            <div class="list-row" style="padding:7px 10px">
+              <span class="small text-faint" style="width:52px">${h}</span>
+              <input class="input" style="border:none; background:transparent; padding:4px 6px" placeholder="—" value="${escapeHtml((dp.hourly&&dp.hourly[h])||'')}" onchange="App.setHourly('${h}', this.value)">
+            </div>`).join('')}
+        `).join('')}
+      </div>
+    </div>
+  </div>
+
+  <div class="grid grid-3 mt-16">
+    <div class="card">
+      <div class="card-head"><h3><i class="fa-solid fa-glass-water"></i> Water</h3></div>
+      <div class="flex gap-8" style="flex-wrap:wrap">
+        ${[...Array(8)].map((_,i)=>`<i class="fa-solid fa-glass-water" style="font-size:18px; cursor:pointer; color:${i<dp.water?'var(--accent)':'var(--border)'}" onclick="App.setWater(${i+1})"></i>`).join('')}
+      </div>
+      <div class="small text-faint mt-10">${dp.water||0} / 8 glasses</div>
+    </div>
+    <div class="card">
+      <div class="card-head"><h3><i class="fa-solid fa-bolt"></i> Energy</h3></div>
+      <div class="chip-row">${['Low','Medium','High'].map(e=>`<div class="chip ${dp.energy===e?'selected':''}" onclick="App.setDailyEnergy('${e}')">${e}</div>`).join('')}</div>
+    </div>
+    <div class="card">
+      <div class="card-head"><h3><i class="fa-solid fa-face-smile"></i> Mood</h3></div>
+      <div class="chip-row">${['Happy','Calm','Neutral','Tired','Stressed'].map(m=>`<div class="chip ${dp.mood===m?'selected':''}" onclick="App.setDailyMood('${m}')">${m}</div>`).join('')}</div>
+    </div>
+  </div>
+
+  <div class="grid grid-2 mt-16">
+    <div class="card">
+      <div class="card-head"><h3><i class="fa-solid fa-feather"></i> Quick Notes</h3></div>
+      <textarea class="input" style="min-height:90px" onchange="App.setDailyNotes(this.value)">${escapeHtml(dp.notes||'')}</textarea>
+    </div>
+    <div class="card">
+      <div class="card-head"><h3><i class="fa-solid fa-moon"></i> End-of-Day Reflection</h3></div>
+      <textarea class="input" style="min-height:90px" placeholder="How did today feel?" onchange="App.setDailyReflection(this.value)">${escapeHtml(dp.reflection||'')}</textarea>
+    </div>
+  </div>
+
+  <div class="quote-card mt-16">
+    <i class="fa-solid fa-sparkles quote-deco"></i>
+    <p class="q" style="font-size:17px">"${escapeHtml(affirmation)}"</p>
+    <div class="q-sign">DAILY AFFIRMATION</div>
+  </div>
+  `;
+};
+function setDailyDate(d){ dailyDate=d; go('daily'); }
+function setDailyPriority(i,val){ const dp=getDailyPlan(dailyDate); if(!dp.topPriorities) dp.topPriorities=['','','']; dp.topPriorities[i]=val; save(); }
+function setHourly(h,val){ const dp=getDailyPlan(dailyDate); if(!dp.hourly) dp.hourly={}; dp.hourly[h]=val; save(); }
+function setWater(n){ const dp=getDailyPlan(dailyDate); dp.water = dp.water===n ? n-1 : n; save(); go('daily'); }
+function setDailyEnergy(e){ const dp=getDailyPlan(dailyDate); dp.energy=e; save(); go('daily'); }
+function setDailyMood(m){ const dp=getDailyPlan(dailyDate); dp.mood=m; save(); go('daily'); }
+function setDailyNotes(v){ getDailyPlan(dailyDate).notes=v; save(); }
+function setDailyReflection(v){ getDailyPlan(dailyDate).reflection=v; save(); }
+function openDailyTodoModal(){
+  openModal(`
+    <div class="modal-head"><h3><i class="fa-solid fa-circle-check"></i> Add To-Do</h3><button class="btn btn-icon btn-sm" onclick="App.closeModal()"><i class="fa-solid fa-xmark"></i></button></div>
+    <div class="modal-body"><div class="field"><label class="field-label">TASK</label><input class="input" id="dailyTodoText" placeholder="What needs doing today?"></div></div>
+    <div class="modal-foot"><button class="btn" onclick="App.closeModal()">Cancel</button><button class="btn btn-primary" onclick="App.saveDailyTodo()"><i class="fa-solid fa-plus"></i> Add</button></div>
+  `);
+}
+function saveDailyTodo(){
+  const text = document.getElementById('dailyTodoText').value.trim();
+  if(!text) return;
+  getDailyPlan(dailyDate).todos.push({id:uid(), text, done:false});
+  save(); closeModal(); go('daily');
+}
+function toggleDailyTodo(id){ const dp=getDailyPlan(dailyDate); const t=dp.todos.find(x=>x.id===id); if(t){t.done=!t.done; save(); go('daily');} }
+function deleteDailyTodo(id){ const dp=getDailyPlan(dailyDate); dp.todos=dp.todos.filter(x=>x.id!==id); save(); go('daily'); }
+
+/* ============================================================
+   HABITS & ROUTINES
+============================================================ */
+RENDERERS.habits = function(){
+  const today = todayISO();
+  return `
+  <div class="section-head">
+    <div class="section-title"><div class="sec-ic"><i class="fa-solid fa-bat"></i></div><div><h1>Habits & Routines</h1><div class="sec-sub">Small rituals, steady streaks</div></div></div>
+    <button class="btn btn-primary" onclick="App.openHabitModal()"><i class="fa-solid fa-plus"></i> Add Habit</button>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><h3><i class="fa-solid fa-bat"></i> Habit Tracker</h3></div>
+    ${state.habits.length? state.habits.map(h=>{
+      const done = h.log && h.log[today];
+      const streak = habitStreak(h);
+      const last7 = [...Array(7)].map((_,i)=>{ const d=new Date(); d.setDate(d.getDate()-(6-i)); const iso=d.toISOString().slice(0,10); return h.log && h.log[iso]; });
+      return `<div class="list-row" style="padding:13px 12px">
+        <div class="check-circle ${done?'done':''}" onclick="App.toggleHabitToday('${h.id}')">${done?'<i class=\"fa-solid fa-check\"></i>':''}</div>
+        <div style="flex:1">
+          <div class="row-title">${escapeHtml(h.name)}</div>
+          <div class="flex gap-8 mt-10">${last7.map(d=>`<span style="width:16px; height:16px; border-radius:5px; background:${d?'var(--accent)':'var(--bg-alt)'}; border:1px solid var(--border-soft); display:inline-block"></span>`).join('')}</div>
+        </div>
+        <span class="pill pill-gold"><i class="fa-solid fa-fire"></i> ${streak}d streak</span>
+        <div class="row-actions">
+          <button class="btn btn-icon btn-sm" onclick="App.openHabitModal('${h.id}')"><i class="fa-solid fa-pen"></i></button>
+          <button class="btn btn-icon btn-sm btn-danger" onclick="App.deleteHabit('${h.id}')"><i class="fa-solid fa-trash"></i></button>
+        </div>
+      </div>`;
+    }).join('') : emptyState('fa-bat','No habits yet — start a small ritual.')}
+  </div>
+
+  <div class="orn">🌙 ⋆ 🦇 ⋆ 🌙</div>
+
+  <div class="card-head" style="margin-bottom:14px"><h3 style="font-size:18px"><i class="fa-solid fa-list-check"></i> Routine Builder</h3></div>
+  <div class="grid grid-2">
+    ${[['morning','Morning Routine','fa-sun'],['night','Night Routine','fa-moon'],['selfcare','Self-Care Routine','fa-spa'],['custom','Custom Routine','fa-wand-magic-sparkles']].map(([key,label,ic])=>{
+      const items = state.routines[key]||[];
+      const doneCt = items.filter(i=>i.done).length;
+      return `<div class="card">
+        <div class="card-head"><h3><i class="fa-solid ${ic}"></i> ${label}</h3><button class="btn btn-sm btn-icon" onclick="App.openRoutineItemModal('${key}')"><i class="fa-solid fa-plus"></i></button></div>
+        ${items.length? items.map(it=>`
+          <div class="list-row">
+            <div class="check-circle ${it.done?'done':''}" onclick="App.toggleRoutineItem('${key}','${it.id}')">${it.done?'<i class=\"fa-solid fa-check\"></i>':''}</div>
+            <div class="row-title ${it.done?'done':''}">${escapeHtml(it.text)}</div>
+            <div class="row-actions"><button class="btn btn-icon btn-sm btn-danger" onclick="App.deleteRoutineItem('${key}','${it.id}')"><i class="fa-solid fa-trash"></i></button></div>
+          </div>`).join('') : emptyState('fa-feather','No steps yet.')}
+        ${items.length?`<div class="progress mt-10"><span style="width:${Math.round(doneCt/items.length*100)}%"></span></div>`:''}
+      </div>`;
+    }).join('')}
+  </div>
+  `;
+};
+function openHabitModal(id){
+  const h = id ? state.habits.find(x=>x.id===id) : null;
+  openModal(`
+    <div class="modal-head"><h3><i class="fa-solid fa-bat"></i> ${h?'Edit':'New'} Habit</h3><button class="btn btn-icon btn-sm" onclick="App.closeModal()"><i class="fa-solid fa-xmark"></i></button></div>
+    <div class="modal-body"><div class="field"><label class="field-label">HABIT NAME</label><input class="input" id="habitName" placeholder="e.g. Read 10 pages" value="${h?escapeHtml(h.name):''}"></div></div>
+    <div class="modal-foot">${h?`<button class="btn btn-danger" onclick="App.deleteHabit('${h.id}')"><i class="fa-solid fa-trash"></i></button>`:''}<button class="btn" onclick="App.closeModal()">Cancel</button><button class="btn btn-primary" onclick="App.saveHabit('${h?h.id:''}')"><i class="fa-solid fa-floppy-disk"></i> Save</button></div>
+  `);
+}
+function saveHabit(id){
+  const name = document.getElementById('habitName').value.trim();
+  if(!name) return;
+  if(id) state.habits.find(x=>x.id===id).name = name;
+  else state.habits.push({id:uid(), name, log:{}});
+  save(); closeModal(); go('habits'); toast('Habit saved','fa-bat');
+}
+function deleteHabit(id){ state.habits=state.habits.filter(x=>x.id!==id); save(); closeModal(); go('habits'); }
+function toggleHabitToday(id){
+  const h = state.habits.find(x=>x.id===id); if(!h) return;
+  if(!h.log) h.log={};
+  const t = todayISO();
+  h.log[t] = !h.log[t];
+  save(); go('habits');
+}
+function openRoutineItemModal(key){
+  openModal(`
+    <div class="modal-head"><h3><i class="fa-solid fa-list-check"></i> Add Step</h3><button class="btn btn-icon btn-sm" onclick="App.closeModal()"><i class="fa-solid fa-xmark"></i></button></div>
+    <div class="modal-body"><div class="field"><label class="field-label">STEP</label><input class="input" id="routineText" placeholder="e.g. Light a candle"></div></div>
+    <div class="modal-foot"><button class="btn" onclick="App.closeModal()">Cancel</button><button class="btn btn-primary" onclick="App.saveRoutineItem('${key}')"><i class="fa-solid fa-plus"></i> Add</button></div>
+  `);
+}
+function saveRoutineItem(key){
+  const text = document.getElementById('routineText').value.trim();
+  if(!text) return;
+  if(!state.routines[key]) state.routines[key]=[];
+  state.routines[key].push({id:uid(), text, done:false});
+  save(); closeModal(); go('habits');
+}
+function toggleRoutineItem(key,id){ const it=state.routines[key].find(x=>x.id===id); if(it){it.done=!it.done; save(); go('habits');} }
+function deleteRoutineItem(key,id){ state.routines[key]=state.routines[key].filter(x=>x.id!==id); save(); go('habits'); }
+
+/* ============================================================
+   WELLNESS & MOOD
+============================================================ */
+RENDERERS.wellness = function(){
+  const today = todayISO();
+  const g = state.gratitude.find(x=>x.date===today) || {items:['','',''], smile:'', proud:''};
+  const last14 = [...Array(14)].map((_,i)=>{ const d=new Date(); d.setDate(d.getDate()-(13-i)); const iso=d.toISOString().slice(0,10); const m=state.moods.find(x=>x.date===iso); return {iso, mood:m?m.mood:null}; });
+  const moodColor = {Happy:'var(--success)',Calm:'var(--lavender)',Productive:'var(--gold)',Neutral:'var(--text-faint)',Sad:'var(--accent)',Stressed:'var(--danger)',Tired:'var(--accent-deep)',Overwhelmed:'var(--danger)'};
+
+  return `
+  <div class="section-head"><div class="section-title"><div class="sec-ic"><i class="fa-solid fa-heart"></i></div><div><h1>Wellness & Mood</h1><div class="sec-sub">Tend to yourself, gently</div></div></div></div>
+
+  <div class="card">
+    <div class="card-head"><h3><i class="fa-solid fa-face-smile"></i> Mood Tracker</h3></div>
+    ${renderMoodChips()}
+    <div class="flex gap-8 mt-16" style="align-items:flex-end">
+      ${last14.map(d=>`<div style="width:12px; height:${d.mood?36:10}px; border-radius:4px; background:${d.mood?moodColor[d.mood]||'var(--accent)':'var(--bg-alt)'}; border:1px solid var(--border-soft)" title="${d.iso}: ${d.mood||'—'}"></div>`).join('')}
+    </div>
+    <div class="small text-faint mt-10">Last 14 days</div>
+  </div>
+
+  <div class="grid grid-3 mt-16">
+    <div class="card">
+      <div class="card-head"><h3><i class="fa-solid fa-moon"></i> Sleep</h3></div>
+      <input type="number" step="0.5" class="input" placeholder="Hours slept" value="${wellnessToday('sleep')}" onchange="App.setWellness('sleep', this.value)">
+    </div>
+    <div class="card">
+      <div class="card-head"><h3><i class="fa-solid fa-glass-water"></i> Water</h3></div>
+      <input type="number" class="input" placeholder="Glasses" value="${wellnessToday('water')}" onchange="App.setWellness('water', this.value)">
+    </div>
+    <div class="card">
+      <div class="card-head"><h3><i class="fa-solid fa-bolt"></i> Energy</h3></div>
+      <div class="chip-row">${['Low','Medium','High'].map(e=>`<div class="chip ${wellnessToday('energy')===e?'selected':''}" onclick="App.setWellness('energy','${e}')">${e}</div>`).join('')}</div>
+    </div>
+  </div>
+
+  <div class="grid grid-2 mt-16">
+    <div class="card">
+      <div class="card-head"><h3><i class="fa-solid fa-spa"></i> Self-Care Check-In</h3></div>
+      <div class="chip-row">
+        ${['Movement','Screen Time Break','Rest','Skincare','Nature','Quiet Time'].map(s=>`<div class="chip ${(state.selfcareLog&&state.selfcareLog[today]&&state.selfcareLog[today].includes(s))?'selected':''}" onclick="App.toggleSelfcare('${s}')">${s}</div>`).join('')}
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head"><h3><i class="fa-solid fa-heart"></i> Gratitude</h3></div>
+      <label class="field-label">3 THINGS I'M GRATEFUL FOR</label>
+      ${[0,1,2].map(i=>`<input class="input mt-10" value="${escapeHtml(g.items[i]||'')}" onchange="App.setGratitude(${i}, this.value)">`).join('')}
+      <label class="field-label mt-16" style="display:block">SOMETHING THAT MADE ME SMILE</label>
+      <input class="input mt-10" value="${escapeHtml(g.smile||'')}" onchange="App.setGratitudeField('smile', this.value)">
+      <label class="field-label mt-16" style="display:block">SOMETHING I'M PROUD OF</label>
+      <input class="input mt-10" value="${escapeHtml(g.proud||'')}" onchange="App.setGratitudeField('proud', this.value)">
+    </div>
+  </div>
+  `;
+};
+function wellnessToday(key){
+  const today = todayISO();
+  const arr = state.wellness[key]||[];
+  const e = arr.find(x=>x.date===today);
+  return e ? e.value : '';
+}
+function setWellness(key, val){
+  const today = todayISO();
+  if(!state.wellness[key]) state.wellness[key]=[];
+  const e = state.wellness[key].find(x=>x.date===today);
+  if(e) e.value = val; else state.wellness[key].push({id:uid(), date:today, value:val});
+  save(); go('wellness');
+}
+function toggleSelfcare(s){
+  const today = todayISO();
+  if(!state.selfcareLog) state.selfcareLog={};
+  if(!state.selfcareLog[today]) state.selfcareLog[today]=[];
+  const idx = state.selfcareLog[today].indexOf(s);
+  if(idx>-1) state.selfcareLog[today].splice(idx,1); else state.selfcareLog[today].push(s);
+  save(); go('wellness');
+}
+function getGratitudeToday(){
+  const today = todayISO();
+  let g = state.gratitude.find(x=>x.date===today);
+  if(!g){ g = {id:uid(), date:today, items:['','',''], smile:'', proud:''}; state.gratitude.push(g); }
+  return g;
+}
+function setGratitude(i, val){ const g=getGratitudeToday(); g.items[i]=val; save(); }
+function setGratitudeField(f, val){ const g=getGratitudeToday(); g[f]=val; save(); }
+
+/* ============================================================
+   FINANCE
+============================================================ */
+RENDERERS.finance = function(){
+  const fin = state.finance;
+  const totalIncome = fin.income.reduce((s,i)=>s+Number(i.amount||0),0);
+  const totalExpense = fin.expenses.reduce((s,i)=>s+Number(i.amount||0),0);
+  const balance = totalIncome - totalExpense;
+  const byCat = {};
+  fin.expenses.forEach(e=>{ byCat[e.category] = (byCat[e.category]||0) + Number(e.amount||0); });
+
+  return `
+  <div class="section-head"><div class="section-title"><div class="sec-ic"><i class="fa-solid fa-coins"></i></div><div><h1>Finance</h1><div class="sec-sub">Budget with a little grace</div></div></div></div>
+
+  <div class="grid grid-4">
+    <div class="card stat-card"><div class="stat-top"><span class="stat-label">INCOME</span><i class="fa-solid fa-arrow-trend-up stat-ic"></i></div><div class="stat-val" style="font-size:24px">${fmtMoney(totalIncome)}</div></div>
+    <div class="card stat-card"><div class="stat-top"><span class="stat-label">EXPENSES</span><i class="fa-solid fa-arrow-trend-down stat-ic"></i></div><div class="stat-val" style="font-size:24px">${fmtMoney(totalExpense)}</div></div>
+    <div class="card stat-card"><div class="stat-top"><span class="stat-label">BALANCE</span><i class="fa-solid fa-coins stat-ic"></i></div><div class="stat-val" style="font-size:24px; color:${balance>=0?'var(--success)':'var(--danger)'}">${fmtMoney(balance)}</div></div>
+    <div class="card stat-card"><div class="stat-top"><span class="stat-label">SAVINGS GOALS</span><i class="fa-solid fa-piggy-bank stat-ic"></i></div><div class="stat-val" style="font-size:24px">${fin.savingsGoals.length}</div></div>
+  </div>
+
+  <div class="tabs mt-16" id="finTabs">
+    ${['Income','Expenses','Budget','Bills','Savings Goals'].map((t,i)=>`<div class="tab-btn ${i===0?'active':''}" data-ftab="${t}" onclick="App.finTab('${t}')">${t}</div>`).join('')}
+  </div>
+  <div id="finTabBody">${renderFinTab('Income')}</div>
+  `;
+};
+let finActiveTab = 'Income';
+function finTab(t){
+  finActiveTab = t;
+  document.querySelectorAll('#finTabs .tab-btn').forEach(b=>b.classList.toggle('active', b.dataset.ftab===t));
+  document.getElementById('finTabBody').innerHTML = renderFinTab(t);
+}
+function renderFinTab(t){
+  const fin = state.finance;
+  if(t==='Income'){
+    return `<div class="card"><div class="card-head"><h3><i class="fa-solid fa-arrow-trend-up"></i> Income</h3><button class="btn btn-sm" onclick="App.openFinModal('income')"><i class="fa-solid fa-plus"></i> Add</button></div>
+      ${fin.income.length? fin.income.map(i=>`<div class="list-row"><div class="row-title">${escapeHtml(i.source)}<div class="small text-faint">${i.date?fmtDatePretty(i.date):''}</div></div><strong style="color:var(--success)">${fmtMoney(i.amount)}</strong><div class="row-actions"><button class="btn btn-icon btn-sm btn-danger" onclick="App.deleteFin('income','${i.id}')"><i class="fa-solid fa-trash"></i></button></div></div>`).join('') : emptyState('fa-coins','No income logged yet.')}</div>`;
+  }
+  if(t==='Expenses'){
+    return `<div class="card"><div class="card-head"><h3><i class="fa-solid fa-arrow-trend-down"></i> Expenses</h3><button class="btn btn-sm" onclick="App.openFinModal('expenses')"><i class="fa-solid fa-plus"></i> Add</button></div>
+      ${fin.expenses.length? fin.expenses.map(i=>`<div class="list-row"><div class="row-title">${escapeHtml(i.name)}<div class="small text-faint">${escapeHtml(i.category)} · ${i.date?fmtDatePretty(i.date):''}</div></div><strong style="color:var(--danger)">${fmtMoney(i.amount)}</strong><div class="row-actions"><button class="btn btn-icon btn-sm btn-danger" onclick="App.deleteFin('expenses','${i.id}')"><i class="fa-solid fa-trash"></i></button></div></div>`).join('') : emptyState('fa-receipt','No expenses logged yet.')}</div>`;
+  }
+  if(t==='Budget'){
+    const cats = Object.keys(fin.budgets);
+    return `<div class="card"><div class="card-head"><h3><i class="fa-solid fa-coins"></i> Monthly Budget by Category</h3></div>
+      ${cats.map(c=>{
+        const spent = fin.expenses.filter(e=>e.category===c).reduce((s,e)=>s+Number(e.amount||0),0);
+        const budget = Number(fin.budgets[c])||0;
+        const pct = budget? clamp(Math.round(spent/budget*100),0,100) : 0;
+        return `<div class="mb-10" style="margin-top:14px">
+          <div class="flex-between"><span class="small">${c}</span><span class="small text-faint">${fmtMoney(spent)} / <input class="input" style="width:80px; display:inline-block; padding:3px 8px" type="number" value="${budget}" onchange="App.setBudget('${c}', this.value)"></span></div>
+          <div class="progress mt-10"><span style="width:${pct}%; background:${pct>=100?'var(--danger)':'linear-gradient(90deg, var(--accent-deep), var(--accent))'}"></span></div>
+        </div>`;
+      }).join('')}</div>`;
+  }
+  if(t==='Bills'){
+    return `<div class="card"><div class="card-head"><h3><i class="fa-solid fa-receipt"></i> Bills</h3><button class="btn btn-sm" onclick="App.openFinModal('bills')"><i class="fa-solid fa-plus"></i> Add</button></div>
+      ${fin.bills.length? fin.bills.map(b=>`<div class="list-row"><div class="check-circle ${b.paid?'done':''}" onclick="App.toggleBill('${b.id}')">${b.paid?'<i class=\"fa-solid fa-check\"></i>':''}</div><div class="row-title ${b.paid?'done':''}">${escapeHtml(b.name)}<div class="small text-faint">Due day ${escapeHtml(b.dueDay||'')}</div></div><strong>${fmtMoney(b.amount)}</strong><div class="row-actions"><button class="btn btn-icon btn-sm btn-danger" onclick="App.deleteFin('bills','${b.id}')"><i class="fa-solid fa-trash"></i></button></div></div>`).join('') : emptyState('fa-receipt','No bills yet.')}</div>`;
+  }
+  if(t==='Savings Goals'){
+    return `<div class="card"><div class="card-head"><h3><i class="fa-solid fa-piggy-bank"></i> Savings Goals</h3><button class="btn btn-sm" onclick="App.openFinModal('savingsGoals')"><i class="fa-solid fa-plus"></i> Add</button></div>
+      ${fin.savingsGoals.length? fin.savingsGoals.map(s=>{ const pct = s.target? clamp(Math.round(Number(s.saved||0)/Number(s.target)*100),0,100):0; return `
+      <div class="mb-10" style="margin-top:14px">
+        <div class="flex-between"><span class="small">${escapeHtml(s.name)}</span><span class="small text-faint">${fmtMoney(s.saved||0)} / ${fmtMoney(s.target)}</span></div>
+        <div class="progress mt-10"><span style="width:${pct}%"></span></div>
+      </div>`; }).join('') : emptyState('fa-piggy-bank','No savings goals yet.')}</div>`;
+  }
+  return '';
+}
+function openFinModal(kind){
+  const fields = {
+    income: `<div class="field"><label class="field-label">SOURCE</label><input class="input" id="f1"></div><div class="field"><label class="field-label">AMOUNT</label><input type="number" class="input" id="f2"></div><div class="field"><label class="field-label">DATE</label><input type="date" class="input" id="f3" value="${todayISO()}"></div>`,
+    expenses: `<div class="field"><label class="field-label">EXPENSE</label><input class="input" id="f1"></div><div class="field-row"><div class="field"><label class="field-label">AMOUNT</label><input type="number" class="input" id="f2"></div><div class="field"><label class="field-label">CATEGORY</label><select class="input" id="f3">${Object.keys(state.finance.budgets).map(c=>`<option>${c}</option>`).join('')}</select></div></div><div class="field"><label class="field-label">DATE</label><input type="date" class="input" id="f4" value="${todayISO()}"></div>`,
+    bills: `<div class="field"><label class="field-label">BILL NAME</label><input class="input" id="f1"></div><div class="field-row"><div class="field"><label class="field-label">AMOUNT</label><input type="number" class="input" id="f2"></div><div class="field"><label class="field-label">DUE DAY OF MONTH</label><input type="number" min="1" max="31" class="input" id="f3"></div></div>`,
+    savingsGoals: `<div class="field"><label class="field-label">GOAL NAME</label><input class="input" id="f1"></div><div class="field-row"><div class="field"><label class="field-label">TARGET</label><input type="number" class="input" id="f2"></div><div class="field"><label class="field-label">SAVED SO FAR</label><input type="number" class="input" id="f3" value="0"></div></div>`
+  };
+  const titles = {income:'Add Income', expenses:'Add Expense', bills:'Add Bill', savingsGoals:'Add Savings Goal'};
+  openModal(`<div class="modal-head"><h3><i class="fa-solid fa-coins"></i> ${titles[kind]}</h3><button class="btn btn-icon btn-sm" onclick="App.closeModal()"><i class="fa-solid fa-xmark"></i></button></div>
+    <div class="modal-body">${fields[kind]}</div>
+    <div class="modal-foot"><button class="btn" onclick="App.closeModal()">Cancel</button><button class="btn btn-primary" onclick="App.saveFin('${kind}')"><i class="fa-solid fa-floppy-disk"></i> Save</button></div>`);
+}
+function saveFin(kind){
+  const v = id => { const el = document.getElementById(id); return el ? el.value : ''; };
+  let obj;
+  if(kind==='income') obj = {id:uid(), source:v('f1'), amount:Number(v('f2'))||0, date:v('f3')};
+  if(kind==='expenses') obj = {id:uid(), name:v('f1'), amount:Number(v('f2'))||0, category:v('f3'), date:v('f4')};
+  if(kind==='bills') obj = {id:uid(), name:v('f1'), amount:Number(v('f2'))||0, dueDay:v('f3'), paid:false};
+  if(kind==='savingsGoals') obj = {id:uid(), name:v('f1'), target:Number(v('f2'))||0, saved:Number(v('f3'))||0};
+  state.finance[kind].push(obj);
+  save(); closeModal(); go('finance'); toast('Saved','fa-coins');
+}
+function deleteFin(kind,id){ state.finance[kind]=state.finance[kind].filter(x=>x.id!==id); save(); go('finance'); }
+function toggleBill(id){ const b=state.finance.bills.find(x=>x.id===id); if(b){b.paid=!b.paid; save(); go('finance');} }
+function setBudget(cat, val){ state.finance.budgets[cat]=Number(val)||0; save(); }
+
+/* ============================================================
+   LIFE ADMIN
+============================================================ */
+RENDERERS.admin = function(){
+  const a = state.admin;
+  return `
+  <div class="section-head"><div class="section-title"><div class="sec-ic"><i class="fa-solid fa-key"></i></div><div><h1>Life Admin</h1><div class="sec-sub">The unglamorous, handled</div></div></div></div>
+
+  <div class="grid grid-2" style="align-items:start">
+    <div class="card">
+      <div class="card-head"><h3><i class="fa-solid fa-folder"></i> Important Tasks</h3><button class="btn btn-sm" onclick="App.openAdminItemModal()"><i class="fa-solid fa-plus"></i></button></div>
+      ${a.items.length? a.items.map(it=>`
+        <div class="list-row">
+          <div class="check-circle ${it.done?'done':''}" onclick="App.toggleAdminItem('${it.id}')">${it.done?'<i class=\"fa-solid fa-check\"></i>':''}</div>
+          <div class="row-title ${it.done?'done':''}">${escapeHtml(it.text)}<div class="small text-faint">${escapeHtml(it.category||'General')}${it.date?' · '+fmtDatePretty(it.date):''}</div></div>
+          <div class="row-actions"><button class="btn btn-icon btn-sm btn-danger" onclick="App.deleteAdminItem('${it.id}')"><i class="fa-solid fa-trash"></i></button></div>
+        </div>`).join('') : emptyState('fa-key','No admin tasks yet.')}
+    </div>
+
+    <div class="card">
+      <div class="card-head"><h3><i class="fa-solid fa-basket-shopping"></i> Shopping List</h3><button class="btn btn-sm" onclick="App.openShoppingModal()"><i class="fa-solid fa-plus"></i></button></div>
+      ${a.shopping.length? a.shopping.map(s=>`
+        <div class="list-row">
+          <div class="check-circle ${s.done?'done':''}" onclick="App.toggleShopping('${s.id}')">${s.done?'<i class=\"fa-solid fa-check\"></i>':''}</div>
+          <div class="row-title ${s.done?'done':''}">${escapeHtml(s.item)} ${s.qty?`<span class="pill" style="margin-left:6px">x${escapeHtml(s.qty)}</span>`:''}<div class="small text-faint">${escapeHtml(s.category||'')}</div></div>
+          <div class="row-actions"><button class="btn btn-icon btn-sm btn-danger" onclick="App.deleteShopping('${s.id}')"><i class="fa-solid fa-trash"></i></button></div>
+        </div>`).join('') : emptyState('fa-basket-shopping','Your list is empty.')}
+    </div>
+  </div>
+
+  <div class="grid grid-2 mt-16" style="align-items:start">
+    <div class="card">
+      <div class="card-head"><h3><i class="fa-solid fa-house"></i> Home Management</h3><button class="btn btn-sm" onclick="App.openHomeNoteModal()"><i class="fa-solid fa-plus"></i></button></div>
+      ${(a.notes||[]).length? a.notes.map(n=>`<div class="list-row"><i class="fa-solid ${n.type==='cleaning'?'fa-broom':'fa-house'}" style="color:var(--accent)"></i><div class="row-title">${escapeHtml(n.text)}</div><div class="row-actions"><button class="btn btn-icon btn-sm btn-danger" onclick="App.deleteHomeNote('${n.id}')"><i class="fa-solid fa-trash"></i></button></div></div>`).join('') : emptyState('fa-broom','No home notes yet.')}
+    </div>
+    <div class="card">
+      <div class="card-head"><h3><i class="fa-solid fa-address-book"></i> Important Contacts & Info</h3><button class="btn btn-sm" onclick="App.openContactModal()"><i class="fa-solid fa-plus"></i></button></div>
+      ${a.contacts.length? a.contacts.map(c=>`<div class="list-row"><i class="fa-solid fa-user" style="color:var(--accent)"></i><div class="row-title">${escapeHtml(c.name)}<div class="small text-faint">${escapeHtml(c.detail||'')}</div></div><div class="row-actions"><button class="btn btn-icon btn-sm btn-danger" onclick="App.deleteContact('${c.id}')"><i class="fa-solid fa-trash"></i></button></div></div>`).join('') : emptyState('fa-address-book','No contacts saved yet.')}
+    </div>
+  </div>
+  `;
+};
+function openAdminItemModal(){
+  openModal(`<div class="modal-head"><h3><i class="fa-solid fa-key"></i> Add Admin Task</h3><button class="btn btn-icon btn-sm" onclick="App.closeModal()"><i class="fa-solid fa-xmark"></i></button></div>
+  <div class="modal-body">
+    <div class="field"><label class="field-label">TASK</label><input class="input" id="a1" placeholder="Renew passport..."></div>
+    <div class="field-row"><div class="field"><label class="field-label">CATEGORY</label><select class="input" id="a2"><option>Appointment</option><option>Document</option><option>Renewal</option><option>Deadline</option><option>Personal Admin</option></select></div><div class="field"><label class="field-label">DATE</label><input type="date" class="input" id="a3"></div></div>
+  </div>
+  <div class="modal-foot"><button class="btn" onclick="App.closeModal()">Cancel</button><button class="btn btn-primary" onclick="App.saveAdminItem()"><i class="fa-solid fa-plus"></i> Add</button></div>`);
+}
+function saveAdminItem(){
+  const text = document.getElementById('a1').value.trim(); if(!text) return;
+  state.admin.items.push({id:uid(), text, category:document.getElementById('a2').value, date:document.getElementById('a3').value, done:false});
+  save(); closeModal(); go('admin');
+}
+function toggleAdminItem(id){ const it=state.admin.items.find(x=>x.id===id); if(it){it.done=!it.done; save(); go('admin');} }
+function deleteAdminItem(id){ state.admin.items=state.admin.items.filter(x=>x.id!==id); save(); go('admin'); }
+function openShoppingModal(){
+  openModal(`<div class="modal-head"><h3><i class="fa-solid fa-basket-shopping"></i> Add Item</h3><button class="btn btn-icon btn-sm" onclick="App.closeModal()"><i class="fa-solid fa-xmark"></i></button></div>
+  <div class="modal-body">
+    <div class="field"><label class="field-label">ITEM</label><input class="input" id="s1"></div>
+    <div class="field-row"><div class="field"><label class="field-label">QUANTITY</label><input class="input" id="s2"></div><div class="field"><label class="field-label">CATEGORY</label><input class="input" id="s3" placeholder="Groceries, etc."></div></div>
+  </div>
+  <div class="modal-foot"><button class="btn" onclick="App.closeModal()">Cancel</button><button class="btn btn-primary" onclick="App.saveShopping()"><i class="fa-solid fa-plus"></i> Add</button></div>`);
+}
+function saveShopping(){
+  const item = document.getElementById('s1').value.trim(); if(!item) return;
+  state.admin.shopping.push({id:uid(), item, qty:document.getElementById('s2').value, category:document.getElementById('s3').value, done:false});
+  save(); closeModal(); go('admin');
+}
+function toggleShopping(id){ const s=state.admin.shopping.find(x=>x.id===id); if(s){s.done=!s.done; save(); go('admin');} }
+function deleteShopping(id){ state.admin.shopping=state.admin.shopping.filter(x=>x.id!==id); save(); go('admin'); }
+function openHomeNoteModal(){
+  openModal(`<div class="modal-head"><h3><i class="fa-solid fa-house"></i> Add Home Note</h3><button class="btn btn-icon btn-sm" onclick="App.closeModal()"><i class="fa-solid fa-xmark"></i></button></div>
+  <div class="modal-body"><div class="field"><label class="field-label">NOTE</label><input class="input" id="h1" placeholder="e.g. Deep clean kitchen"></div>
+  <div class="field"><label class="field-label">TYPE</label><select class="input" id="h2"><option value="home">Home</option><option value="cleaning">Cleaning</option></select></div></div>
+  <div class="modal-foot"><button class="btn" onclick="App.closeModal()">Cancel</button><button class="btn btn-primary" onclick="App.saveHomeNote()"><i class="fa-solid fa-plus"></i> Add</button></div>`);
+}
+function saveHomeNote(){
+  const text = document.getElementById('h1').value.trim(); if(!text) return;
+  if(!state.admin.notes) state.admin.notes=[];
+  state.admin.notes.push({id:uid(), text, type:document.getElementById('h2').value});
+  save(); closeModal(); go('admin');
+}
+function deleteHomeNote(id){ state.admin.notes=state.admin.notes.filter(x=>x.id!==id); save(); go('admin'); }
+function openContactModal(){
+  openModal(`<div class="modal-head"><h3><i class="fa-solid fa-address-book"></i> Add Contact / Info</h3><button class="btn btn-icon btn-sm" onclick="App.closeModal()"><i class="fa-solid fa-xmark"></i></button></div>
+  <div class="modal-body"><div class="field"><label class="field-label">NAME</label><input class="input" id="c1"></div><div class="field"><label class="field-label">DETAIL</label><input class="input" id="c2" placeholder="Phone, membership #, etc."></div></div>
+  <div class="modal-foot"><button class="btn" onclick="App.closeModal()">Cancel</button><button class="btn btn-primary" onclick="App.saveContact()"><i class="fa-solid fa-plus"></i> Add</button></div>`);
+}
+function saveContact(){
+  const name = document.getElementById('c1').value.trim(); if(!name) return;
+  state.admin.contacts.push({id:uid(), name, detail:document.getElementById('c2').value});
+  save(); closeModal(); go('admin');
+}
+function deleteContact(id){ state.admin.contacts=state.admin.contacts.filter(x=>x.id!==id); save(); go('admin'); }
+
+/* ============================================================
+   JOURNAL & MEMORIES
+============================================================ */
+RENDERERS.journal = function(){
+  const entries = state.journal.slice().sort((a,b)=>b.date.localeCompare(a.date));
+  return `
+  <div class="section-head"><div class="section-title"><div class="sec-ic"><i class="fa-solid fa-book-open"></i></div><div><h1>Journal & Memories</h1><div class="sec-sub">Your story, kept safe</div></div></div>
+    <button class="btn btn-primary" onclick="App.openJournalModal()"><i class="fa-solid fa-plus"></i> New Entry</button>
+  </div>
+
+  <div class="tabs" id="jTabs">
+    ${['Daily Journal','Brain Dump','Memories','Media Tracker'].map((t,i)=>`<div class="tab-btn ${i===0?'active':''}" data-jtab="${t}" onclick="App.jTab('${t}')">${t}</div>`).join('')}
+  </div>
+  <div id="jTabBody">${renderJTab('Daily Journal')}</div>
+  `;
+};
+function jTab(t){
+  document.querySelectorAll('#jTabs .tab-btn').forEach(b=>b.classList.toggle('active', b.dataset.jtab===t));
+  document.getElementById('jTabBody').innerHTML = renderJTab(t);
+}
+function renderJTab(t){
+  if(t==='Daily Journal'){
+    const entries = state.journal.slice().sort((a,b)=>b.date.localeCompare(a.date));
+    return entries.length? entries.map(e=>`
+      <div class="card">
+        <div class="flex-between"><h4 style="font-family:var(--font-display); font-size:18px"><i class="fa-solid fa-feather" style="color:var(--accent)"></i> ${fmtDatePretty(e.date)}</h4>
+        <div class="row-actions" style="opacity:1"><button class="btn btn-icon btn-sm btn-danger" onclick="App.deleteJournal('${e.id}')"><i class="fa-solid fa-trash"></i></button></div></div>
+        <p class="mt-10 text-dim" style="line-height:1.7">${escapeHtml(e.text)}</p>
+      </div>`).join('') : `<div class="card">${emptyState('fa-feather','Your journal is waiting for its first page.')}</div>`;
+  }
+  if(t==='Brain Dump'){
+    return `<div class="card"><div class="card-head"><h3><i class="fa-solid fa-feather"></i> Brain Dump</h3></div>
+      <textarea class="input" style="min-height:260px" placeholder="Let it all out here..." onchange="App.setBrainDump(this.value)">${escapeHtml(state.brainDump||'')}</textarea></div>`;
+  }
+  if(t==='Memories'){
+    return `<div class="card"><div class="card-head"><h3><i class="fa-solid fa-camera"></i> Memories</h3><button class="btn btn-sm" onclick="App.openMemoryModal()"><i class="fa-solid fa-plus"></i></button></div>
+      ${state.memories.length? state.memories.map(m=>`<div class="list-row"><i class="fa-solid fa-camera" style="color:var(--accent)"></i><div class="row-title">${escapeHtml(m.title)}<div class="small text-faint">${m.date?fmtDatePretty(m.date):''} · ${escapeHtml(m.note||'')}</div></div><div class="row-actions"><button class="btn btn-icon btn-sm btn-danger" onclick="App.deleteMemory('${m.id}')"><i class="fa-solid fa-trash"></i></button></div></div>`).join('') : emptyState('fa-camera','No memories saved yet.')}</div>`;
+  }
+  if(t==='Media Tracker'){
+    return `<div class="grid grid-3">
+      ${[['books','Books','fa-book'],['movies','Movies','fa-film'],['music','Music','fa-music']].map(([k,label,ic])=>`
+      <div class="card">
+        <div class="card-head"><h3><i class="fa-solid ${ic}"></i> ${label}</h3><button class="btn btn-icon btn-sm" onclick="App.openMediaModal('${k}')"><i class="fa-solid fa-plus"></i></button></div>
+        ${(state.media[k]||[]).length? state.media[k].map(m=>`<div class="list-row"><div class="row-title">${escapeHtml(m.title)}<div class="small text-faint">${'★'.repeat(m.rating||0)}${'☆'.repeat(5-(m.rating||0))} · ${escapeHtml(m.status||'')}</div></div><div class="row-actions"><button class="btn btn-icon btn-sm btn-danger" onclick="App.deleteMedia('${k}','${m.id}')"><i class="fa-solid fa-trash"></i></button></div></div>`).join('') : emptyState(ic,'Nothing tracked yet.')}
+      </div>`).join('')}
+    </div>`;
+  }
+  return '';
+}
+function openJournalModal(){
+  openModal(`<div class="modal-head"><h3><i class="fa-solid fa-feather"></i> New Journal Entry</h3><button class="btn btn-icon btn-sm" onclick="App.closeModal()"><i class="fa-solid fa-xmark"></i></button></div>
+  <div class="modal-body"><div class="field"><label class="field-label">DATE</label><input type="date" class="input" id="j1" value="${todayISO()}"></div><div class="field"><label class="field-label">ENTRY</label><textarea class="input" style="min-height:180px" id="j2" placeholder="Dear diary..."></textarea></div></div>
+  <div class="modal-foot"><button class="btn" onclick="App.closeModal()">Cancel</button><button class="btn btn-primary" onclick="App.saveJournal()"><i class="fa-solid fa-floppy-disk"></i> Save</button></div>`);
+}
+function saveJournal(){
+  const text = document.getElementById('j2').value.trim(); if(!text) return;
+  state.journal.push({id:uid(), date:document.getElementById('j1').value||todayISO(), text});
+  save(); closeModal(); go('journal'); toast('Entry saved','fa-feather');
+}
+function deleteJournal(id){ state.journal=state.journal.filter(x=>x.id!==id); save(); go('journal'); }
+function setBrainDump(v){ state.brainDump=v; save(); }
+function openMemoryModal(){
+  openModal(`<div class="modal-head"><h3><i class="fa-solid fa-camera"></i> Add Memory</h3><button class="btn btn-icon btn-sm" onclick="App.closeModal()"><i class="fa-solid fa-xmark"></i></button></div>
+  <div class="modal-body"><div class="field"><label class="field-label">TITLE</label><input class="input" id="m1"></div><div class="field"><label class="field-label">DATE</label><input type="date" class="input" id="m2"></div><div class="field"><label class="field-label">NOTE</label><textarea class="input" id="m3"></textarea></div></div>
+  <div class="modal-foot"><button class="btn" onclick="App.closeModal()">Cancel</button><button class="btn btn-primary" onclick="App.saveMemory()"><i class="fa-solid fa-plus"></i> Add</button></div>`);
+}
+function saveMemory(){
+  const title = document.getElementById('m1').value.trim(); if(!title) return;
+  state.memories.push({id:uid(), title, date:document.getElementById('m2').value, note:document.getElementById('m3').value});
+  save(); closeModal(); go('journal');
+}
+function deleteMemory(id){ state.memories=state.memories.filter(x=>x.id!==id); save(); go('journal'); }
+function openMediaModal(kind){
+  openModal(`<div class="modal-head"><h3><i class="fa-solid fa-star"></i> Add ${kind}</h3><button class="btn btn-icon btn-sm" onclick="App.closeModal()"><i class="fa-solid fa-xmark"></i></button></div>
+  <div class="modal-body"><div class="field"><label class="field-label">TITLE</label><input class="input" id="md1"></div>
+  <div class="field-row"><div class="field"><label class="field-label">RATING (0-5)</label><input type="number" min="0" max="5" class="input" id="md2" value="0"></div><div class="field"><label class="field-label">STATUS</label><select class="input" id="md3"><option>Planned</option><option>In Progress</option><option>Completed</option></select></div></div></div>
+  <div class="modal-foot"><button class="btn" onclick="App.closeModal()">Cancel</button><button class="btn btn-primary" onclick="App.saveMedia('${kind}')"><i class="fa-solid fa-plus"></i> Add</button></div>`);
+}
+function saveMedia(kind){
+  const title = document.getElementById('md1').value.trim(); if(!title) return;
+  if(!state.media[kind]) state.media[kind]=[];
+  state.media[kind].push({id:uid(), title, rating:Number(document.getElementById('md2').value)||0, status:document.getElementById('md3').value});
+  save(); closeModal(); go('journal');
+}
+function deleteMedia(kind,id){ state.media[kind]=state.media[kind].filter(x=>x.id!==id); save(); go('journal'); }
+
+/* ============================================================
+   SETTINGS
+============================================================ */
+RENDERERS.settings = function(){
+  const s = state.settings;
+  return `
+  <div class="section-head"><div class="section-title"><div class="sec-ic"><i class="fa-solid fa-gear"></i></div><div><h1>Settings</h1><div class="sec-sub">Make it yours</div></div></div></div>
+
+  <div class="card">
+    <div class="card-head"><h3><i class="fa-solid fa-palette"></i> Theme</h3></div>
+    <div class="grid grid-3">
+      ${THEMES.map(t=>`
+        <div class="chip ${s.theme===t.id?'selected':''}" style="justify-content:center; padding:14px" onclick="App.setTheme('${t.id}')"><i class="fa-solid fa-moon"></i>${t.name}</div>
+      `).join('')}
+    </div>
+    <div class="divider">CUSTOM</div>
+    <div class="flex gap-12">
+      <input type="color" value="${s.customAccent||'#c17d92'}" id="customColor" style="width:60px; height:42px; border-radius:10px; border:1px solid var(--border-soft); background:transparent">
+      <button class="btn" onclick="App.applyCustomTheme()"><i class="fa-solid fa-wand-magic-sparkles"></i> Use Custom Accent</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><h3><i class="fa-solid fa-user"></i> Personal Settings</h3></div>
+    <div class="field-row">
+      <div class="field"><label class="field-label">NAME</label><input class="input" id="setName" value="${escapeHtml(s.name)}"></div>
+      <div class="field"><label class="field-label">GREETING</label><input class="input" id="setGreeting" value="${escapeHtml(s.greeting)}"></div>
+    </div>
+    <div class="field-row">
+      <div class="field"><label class="field-label">START OF WEEK</label><select class="input" id="setStartWeek"><option ${s.startOfWeek==='Sunday'?'selected':''}>Sunday</option><option ${s.startOfWeek==='Monday'?'selected':''}>Monday</option></select></div>
+      <div class="field"><label class="field-label">TIME FORMAT</label><select class="input" id="setTimeFormat"><option value="12h" ${s.timeFormat==='12h'?'selected':''}>12-hour</option><option value="24h" ${s.timeFormat==='24h'?'selected':''}>24-hour</option></select></div>
+    </div>
+    <button class="btn btn-primary" onclick="App.saveSettings()"><i class="fa-solid fa-floppy-disk"></i> Save Settings</button>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><h3><i class="fa-solid fa-database"></i> Data Controls</h3></div>
+    <div class="flex gap-10" style="flex-wrap:wrap">
+      <button class="btn" onclick="App.loadDemoData()"><i class="fa-solid fa-wand-magic-sparkles"></i> Load Demo Data</button>
+      <button class="btn" onclick="App.confirmStartFresh()"><i class="fa-solid fa-rotate-right"></i> Start Fresh</button>
+      <button class="btn btn-danger" onclick="App.confirmClearData()"><i class="fa-solid fa-trash"></i> Clear Planner Data</button>
+      <button class="btn" onclick="App.exportData()"><i class="fa-solid fa-file-export"></i> Export Data</button>
+      <button class="btn" onclick="document.getElementById('importFile').click()"><i class="fa-solid fa-file-import"></i> Import Data</button>
+      <input type="file" id="importFile" accept="application/json" style="display:none" onchange="App.importData(event)">
+    </div>
+  </div>
+  <div class="orn">🌙 ⋆ made with a little gothic romance ⋆ 🌙</div>
+  `;
+};
+function setTheme(id){ state.settings.theme=id; state.settings.customAccent=''; save(); applyTheme(); go('settings'); toast('Theme updated','fa-palette'); }
+function applyCustomTheme(){
+  const c = document.getElementById('customColor').value;
+  state.settings.theme='custom'; state.settings.customAccent=c;
+  save(); applyTheme(); go('settings'); toast('Custom accent applied','fa-palette');
+}
+function saveSettings(){
+  state.settings.name = document.getElementById('setName').value || 'Friend';
+  state.settings.greeting = document.getElementById('setGreeting').value;
+  state.settings.startOfWeek = document.getElementById('setStartWeek').value;
+  state.settings.timeFormat = document.getElementById('setTimeFormat').value;
+  save(); renderNav(); document.getElementById('sidebarUserName').textContent = state.settings.name;
+  toast('Settings saved','fa-gear');
+}
+function confirmStartFresh(){
+  openModal(`<div class="modal-head"><h3><i class="fa-solid fa-rotate-right"></i> Start Fresh?</h3><button class="btn btn-icon btn-sm" onclick="App.closeModal()"><i class="fa-solid fa-xmark"></i></button></div>
+  <div class="modal-body"><p class="text-dim">This removes all demo/sample content but keeps your theme and personal settings. This can't be undone.</p></div>
+  <div class="modal-foot"><button class="btn" onclick="App.closeModal()">Cancel</button><button class="btn btn-danger" onclick="App.startFresh()"><i class="fa-solid fa-rotate-right"></i> Start Fresh</button></div>`);
+}
+function startFresh(){
+  const keepSettings = state.settings;
+  state = Object.assign(defaultState(), {settings:keepSettings});
+  save(); closeModal(); go('dashboard'); toast('Planner reset to a fresh start','fa-rotate-right');
+}
+function confirmClearData(){
+  openModal(`<div class="modal-head"><h3><i class="fa-solid fa-trash"></i> Clear All Data?</h3><button class="btn btn-icon btn-sm" onclick="App.closeModal()"><i class="fa-solid fa-xmark"></i></button></div>
+  <div class="modal-body"><p class="text-dim">This permanently deletes everything, including your settings and theme. This can't be undone.</p></div>
+  <div class="modal-foot"><button class="btn" onclick="App.closeModal()">Cancel</button><button class="btn btn-danger" onclick="App.clearAllData()"><i class="fa-solid fa-trash"></i> Clear Everything</button></div>`);
+}
+function clearAllData(){
+  state = defaultState();
+  save(); closeModal(); applyTheme(); go('dashboard'); toast('Planner cleared','fa-trash');
+}
+function exportData(){
+  const blob = new Blob([JSON.stringify(state, null, 2)], {type:'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = 'nocturne-planner-data.json'; a.click();
+  URL.revokeObjectURL(url);
+  toast('Data exported','fa-file-export');
+}
+function importData(evt){
+  const file = evt.target.files[0]; if(!file) return;
+  const reader = new FileReader();
+  reader.onload = function(){
+    try{
+      const parsed = JSON.parse(reader.result);
+      state = Object.assign(defaultState(), parsed);
+      save(); applyTheme(); go('dashboard'); toast('Data imported','fa-file-import');
+    }catch(e){ toast('That file could not be read','fa-triangle-exclamation'); }
+  };
+  reader.readAsText(file);
+}
+
+/* ============================================================
+   DEMO DATA
+============================================================ */
+function loadDemoData(){
+  const t = todayISO();
+  const d = (offset)=>{ const dt=new Date(); dt.setDate(dt.getDate()+offset); return dt.toISOString().slice(0,10); };
+
+  state.tasks = [
+    {id:uid(), title:'Reply to Etsy messages', date:t, priority:'1', done:false},
+    {id:uid(), title:'Water the plants', date:t, priority:'', done:true},
+    {id:uid(), title:'Draft newsletter', date:d(1), priority:'', done:false},
+    {id:uid(), title:'Order more candles', date:t, priority:'', done:false},
+  ];
+  state.goals = [
+    {id:uid(), name:'Read 24 books this year', description:'Cozy, gothic, and romantasy picks.', category:'Personal', deadline:d(180), priority:'Medium', progress:42, status:'In Progress', milestones:[]},
+    {id:uid(), name:'Build an emergency fund', description:'Three months of expenses saved.', category:'Finance', deadline:d(240), priority:'High', progress:65, status:'In Progress', milestones:[]},
+    {id:uid(), name:'Launch my Etsy shop refresh', description:'New branding + 5 new listings.', category:'Career', deadline:d(30), priority:'High', progress:80, status:'In Progress', milestones:[]},
+  ];
+  state.vision = {
+    'Dream Life':'A cozy cottage with a reading nook, candles always lit, and time to create.',
+    'Future Self':'Calm, financially secure, creatively fulfilled.',
+    'Things I Want to Experience':'A trip to a real gothic cathedral, a candlelit dinner party.',
+    'Places I Want to Visit':'Prague, Edinburgh, New Orleans.',
+    'Personal Dreams':'Publish a little book of poetry.',
+    'Lifestyle Vision':'Slow mornings, creative afternoons, quiet evenings.'
+  };
+  state.habits = [
+    {id:uid(), name:'Drink 8 glasses of water', log:{[t]:true, [d(-1)]:true, [d(-2)]:true}},
+    {id:uid(), name:'Journal before bed', log:{[t]:false, [d(-1)]:true, [d(-2)]:true, [d(-3)]:true}},
+    {id:uid(), name:'10-minute stretch', log:{[d(-1)]:true}},
+  ];
+  state.routines = {
+    morning:[{id:uid(), text:'Light a candle', done:true},{id:uid(), text:'Stretch', done:true},{id:uid(), text:'Herbal tea', done:false}],
+    night:[{id:uid(), text:'Skincare ritual', done:false},{id:uid(), text:'Journal 3 lines', done:false},{id:uid(), text:'Read 10 pages', done:false}],
+    selfcare:[{id:uid(), text:'Face mask Sunday', done:false},{id:uid(), text:'Long bath', done:false}],
+    custom:[]
+  };
+  state.events = [
+    {id:uid(), title:"Mom's Birthday", date:d(12), type:'birthday', notes:'Get flowers + a card'},
+    {id:uid(), title:'Dentist Appointment', date:d(5), type:'event', notes:''},
+    {id:uid(), title:'Etsy listing renewal', date:d(2), type:'reminder', notes:''},
+    {id:uid(), title:'Book club meetup', date:d(9), type:'event', notes:'Bring the gothic romance pick'},
+  ];
+  state.moods = [
+    {id:uid(), date:t, mood:'Calm', note:''},
+    {id:uid(), date:d(-1), mood:'Productive', note:''},
+    {id:uid(), date:d(-2), mood:'Tired', note:''},
+    {id:uid(), date:d(-3), mood:'Happy', note:''},
+  ];
+  state.wellness = {
+    sleep:[{id:uid(), date:t, value:7.5},{id:uid(), date:d(-1), value:6.5}],
+    water:[{id:uid(), date:t, value:6}],
+    energy:[{id:uid(), date:t, value:'Medium'}],
+  };
+  state.gratitude = [{id:uid(), date:t, items:['My cat curling up beside me','A quiet cup of tea','Finishing a good chapter'], smile:'A rainy afternoon with candles lit', proud:'Sticking to my budget this week'}];
+  state.finance.income = [{id:uid(), source:'Etsy shop sales', amount:1240, date:d(-3)}, {id:uid(), source:'Freelance design', amount:380, date:d(-10)}];
+  state.finance.expenses = [
+    {id:uid(), name:'Rent', amount:900, category:'Housing', date:d(-5)},
+    {id:uid(), name:'Groceries', amount:145, category:'Food', date:d(-2)},
+    {id:uid(), name:'Etsy supplies', amount:60, category:'Shopping', date:d(-1)},
+    {id:uid(), name:'Streaming subscriptions', amount:28, category:'Entertainment', date:d(-6)},
+  ];
+  state.finance.budgets = {Housing:900, Food:400, Shopping:150, Transportation:120, Entertainment:60, Personal:100, Other:80};
+  state.finance.bills = [{id:uid(), name:'Electricity', amount:85, dueDay:'15', paid:false}, {id:uid(), name:'Internet', amount:60, dueDay:'20', paid:true}];
+  state.finance.savingsGoals = [{id:uid(), name:'Emergency Fund', target:3000, saved:1950}, {id:uid(), name:'Cozy Reading Nook', target:400, saved:120}];
+  state.admin.items = [{id:uid(), text:'Renew car registration', category:'Renewal', date:d(20), done:false}, {id:uid(), text:'Schedule dentist cleaning', category:'Appointment', date:d(5), done:false}];
+  state.admin.shopping = [{id:uid(), item:'Beeswax candles', qty:'3', category:'Home', done:false}, {id:uid(), item:'Chamomile tea', qty:'1', category:'Groceries', done:true}];
+  state.admin.notes = [{id:uid(), text:'Deep clean the kitchen this weekend', type:'cleaning'}];
+  state.admin.contacts = [{id:uid(), name:'Dr. Ellery (Dentist)', detail:'555-0148'}];
+  state.journal = [{id:uid(), date:t, text:'Tonight felt soft and slow. I lit my favorite candle and finally made progress on my reading goal. Grateful for quiet evenings like this.'}];
+  state.brainDump = 'Ideas: new Halloween listing bundle, restock candle supplies, plan cozy October photoshoot...';
+  state.memories = [{id:uid(), title:'First candlelit dinner party', date:d(-30), note:'Everyone wore their favorite dark academia fit.'}];
+  state.media = {books:[{id:uid(), title:'Mexican Gothic', rating:5, status:'Completed'}], movies:[{id:uid(), title:'Crimson Peak', rating:4, status:'Completed'}], music:[{id:uid(), title:'Dark Academia Playlist', rating:5, status:'In Progress'}]};
+  state.dailyPlans[t] = {topPriorities:['Ship 2 Etsy orders','Finish blog post draft','Evening self-care ritual'], todos:[{id:uid(),text:'Pack orders',done:true},{id:uid(),text:'Write product description',done:false}], notes:'Feeling inspired today.', water:5, mood:'Calm', energy:'Medium', affirmation:'', reflection:'', hourly:{'9 AM':'Pack orders','2 PM':'Write blog post'}};
+
+  save(); go(currentSection); toast('Demo data loaded — explore away!', 'fa-wand-magic-sparkles');
+}
+
+/* ============================================================
+   INIT
+============================================================ */
+window.App = window.App || {};
+Object.assign(window.App, {
+  go, toggleSidebar, closeModal,
+  openTaskModal, saveTask, toggleTask, deleteTask, setFocus, setMood,
+  openEventModal, saveEvent, deleteEvent, calNav,
+  setVision, openGoalModal, saveGoal, deleteGoal,
+  setDailyDate, setDailyPriority, setHourly, setWater, setDailyEnergy, setDailyMood, setDailyNotes, setDailyReflection,
+  openDailyTodoModal, saveDailyTodo, toggleDailyTodo, deleteDailyTodo,
+  openHabitModal, saveHabit, deleteHabit, toggleHabitToday,
+  openRoutineItemModal, saveRoutineItem, toggleRoutineItem, deleteRoutineItem,
+  setWellness, toggleSelfcare, setGratitude, setGratitudeField,
+  finTab, openFinModal, saveFin, deleteFin, toggleBill, setBudget,
+  openAdminItemModal, saveAdminItem, toggleAdminItem, deleteAdminItem,
+  openShoppingModal, saveShopping, toggleShopping, deleteShopping,
+  openHomeNoteModal, saveHomeNote, deleteHomeNote,
+  openContactModal, saveContact, deleteContact,
+  jTab, openJournalModal, saveJournal, deleteJournal, setBrainDump,
+  openMemoryModal, saveMemory, deleteMemory, openMediaModal, saveMedia, deleteMedia,
+  setTheme, applyCustomTheme, saveSettings, confirmStartFresh, startFresh, confirmClearData, clearAllData, exportData, importData,
+  loadDemoData,
+});
+
+function init(){
+  applyTheme();
+  renderShell();
+  if(!state.settings.hasSeenWelcome){
+    state.settings.hasSeenWelcome = true; save();
+  }
+  go('dashboard');
+}
+init();
+
+})();
+</script>
+</body>
+</html>
